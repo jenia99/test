@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidDomInspection -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:layoutDirection="ltr"
+    tools:context=".kahootsPage.Kahoots"
+    tools:layout_editor_absoluteY="25dp">
+
+
+    <ScrollView
+        android:layout_width="376dp"
+        android:layout_height="304dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="800dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/alayout"
+                android:layout_width="390dp"
+                android:layout_height="800dp"
+                android:layout_margin="1dp"
+                android:layout_weight=".50"
+                android:gravity="center"
+                tools:ignore="Suspicious0dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textView4"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginRight="35dp"
+                    android:background="@color/colorAccent"
+                    android:drawableLeft="@drawable/draft"
+                    android:drawableRight="@android:drawable/ic_menu_report_image"
+                    android:gravity="center"
+                    android:text="8 hours " />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textView"
+                    android:layout_alignBottom="@+id/textView"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="37dp"
+                    android:layout_marginRight="37dp"
+                    android:layout_marginBottom="-53dp"
+                    android:background="@color/colorAccent"
+                    android:drawableLeft="@drawable/draft"
+                    android:drawableRight="@android:drawable/ic_menu_report_image"
+                    android:gravity="center"
+                    android:text="10 hours " />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textView3"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginRight="36dp"
+                    android:background="@color/colorAccent"
+                    android:drawableLeft="@drawable/draft"
+                    android:drawableRight="@android:drawable/ic_menu_report_image"
+                    android:gravity="center"
+                    android:text="6 hours " />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="150dp"
+                    android:layout_height="51dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginRight="35dp"
+                    android:background="@color/colorAccent"
+                    android:drawableLeft="@drawable/draft"
+                    android:drawableRight="@android:drawable/ic_menu_report_image"
+                    android:gravity="center"
+                    android:text="3 hours " />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="0dp"
+        android:layout_height="133dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="DuplicateIds">
+
+        <TextView
+            android:id="@+id/KahootsText"
+            android:layout_width="351dp"
+            android:layout_height="109dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="top|center"
+            android:text="Kahoots"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.078" />
+
+        <TextView
+            android:id="@+id/my_kahoots2"
+            android:layout_width="94dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="238dp"
+            android:layout_marginLeft="238dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginBottom="21dp"
+            android:background="@color/colorAccent"
+            android:drawableTop="@drawable/user_icon_of_man"
+            android:gravity="center"
+            android:text="My_kahoots"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/Favorits"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="116dp"
+            android:layout_marginLeft="116dp"
+            android:layout_marginEnd="152dp"
+            android:layout_marginRight="152dp"
+            android:layout_marginBottom="23dp"
+            android:drawableTop="@drawable/star_540"
+            android:gravity="center"
+            android:onClick="moveFav"
+            android:text="Favorits"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/share"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignStart="@+id/KahootsText"
+            android:layout_alignLeft="@+id/KahootsText"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginEnd="252dp"
+            android:layout_marginRight="252dp"
+            android:layout_marginBottom="22dp"
+            android:drawableTop="@android:drawable/ic_menu_share"
+            android:gravity="center"
+            android:onClick="moveShareKahoot"
+            android:text="Share"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/relativeLayout01"-->
+        <!--android:layout_width="414dp"-->
+        <!--android:layout_height="109dp"-->
+        <!--android:layout_marginStart="1dp"-->
+        <!--android:layout_marginLeft="1dp"-->
+        <!--android:layout_marginTop="188dp"-->
+        <!--android:layout_marginEnd="1dp"-->
+        <!--android:layout_marginRight="1dp"-->
+        <!--android:background="@color/colorAccent"-->
+        <!--android:orientation="horizontal"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--tools:ignore="DuplicateIds">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/gray_1"-->
+            <!--android:layout_width="182dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_marginStart="226dp"-->
+            <!--android:layout_marginLeft="226dp"-->
+            <!--android:layout_marginTop="6dp"-->
+            <!--android:layout_marginEnd="6dp"-->
+            <!--android:layout_marginRight="6dp"-->
+            <!--android:layout_marginBottom="0dp"-->
+            <!--android:background="@android:color/darker_gray"-->
+            <!--android:text="TextView" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/Draft1"-->
+            <!--android:layout_width="44dp"-->
+            <!--android:layout_height="23dp"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_marginStart="18dp"-->
+            <!--android:layout_marginLeft="18dp"-->
+            <!--android:layout_marginTop="7dp"-->
+            <!--android:layout_marginBottom="79dp"-->
+            <!--android:background="@android:color/holo_red_dark"-->
+            <!--android:text="Draft"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--android:textStyle="bold" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/1Qs"-->
+            <!--android:layout_width="36dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_alignStart="@+id/gray_1"-->
+            <!--android:layout_alignLeft="@+id/gray_1"-->
+            <!--android:layout_alignTop="@+id/gray_1"-->
+            <!--android:layout_alignBottom="@+id/gray_1"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginStart="143dp"-->
+            <!--android:layout_marginLeft="143dp"-->
+            <!--android:layout_marginTop="77dp"-->
+            <!--android:layout_marginEnd="9dp"-->
+            <!--android:layout_marginRight="9dp"-->
+            <!--android:layout_marginBottom="6dp"-->
+            <!--android:text="1 Qs"-->
+            <!--android:textStyle="bold" />-->
+    <!--</RelativeLayout>-->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="1dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints,UnknownId">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/reports"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:drawableTop="@android:drawable/ic_menu_sort_by_size"
+                android:onClick="moveToReports"
+                android:text="reports"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/kahoots"
+                android:layout_width="74dp"
+                android:layout_height="match_parent"
+                android:drawableTop="@android:drawable/alert_light_frame"
+                android:onClick="moveToKahoots"
+                android:text="kahoots"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/enterpin"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableTop="@android:drawable/ic_dialog_dialer"
+                android:onClick="moveToEnterpin"
+                android:text="enter \npin"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/create"
+                android:layout_width="68dp"
+                android:layout_height="match_parent"
+                android:drawableTop="@android:drawable/ic_input_add"
+                android:onClick="moveToCreate"
+                android:text="create"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/discover"
+                android:layout_width="77dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:drawableTop="@android:drawable/ic_menu_recent_history"
+                android:onClick="moveToDiscover"
+                android:text="discover"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

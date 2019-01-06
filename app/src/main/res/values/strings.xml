@@ -1,0 +1,42 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">kahoot!</string>
+    <string name="welcome">welcome</string>
+    <string name="queshtions">queshtions</string>
+    <string name="before_you_start">before you start</string>
+    <string name="answers_of_two_questions">answers of two questions</string>
+    <string name="login_with_google">login with google</string>
+    <string name="login_with_microsoft">login with microsoft</string>
+    <string name="username_or_email">userName or email</string>
+    <string name="login2">login2</string>
+    <string name="lost_your_password">Lost your password?</string>
+    <string name="username">UserName</string>
+    <string name="forgot_your_password">Forgot your password</string>
+    <string name="microsoft">MICROSOFT</string>
+    <string name="google">GOOGLE</string>
+    <string name="password">Password</string>
+    <string name="M">M</string>
+    <string name="G">G</string>
+    <string name="Shape"> btn_Shap</string>
+    <string name="add"> add queshtions</string>
+    <string name="enter_description">enter description</string>
+    <string name="title">title</string>
+    <string name="enter_title">enter title</string>
+    <string name="cancel">Cancel</string>
+    <string name="kahoot_checklist">Kahoot checkList</string>
+    <string name="tap_to_add_cover_img">Tap to add cover img</string>
+     <string name="description">Description</string>
+    <string name="vissiable_to">Vissiable to</string>
+    <string name="g">g</string>
+    <string name="psd_img">psd_img</string>
+    <string name="log_in">LOG IN</string>
+    <string name="favs" />
+    <string name="sign_up">sign_up</string>
+    <string name="tap_to_add_cover_image">Tap to add cover image</string>
+    <string name="profileName">profile Name</string>
+    <string name="todo">TODO</string>
+
+    <string-array name="vis">vis
+        <item name="only">only me</item>
+        <item name="everyone">everyone</item>
+    </string-array>
+</resources>
