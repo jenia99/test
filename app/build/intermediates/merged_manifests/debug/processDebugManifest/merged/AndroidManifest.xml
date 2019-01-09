@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.racoon_moon.kahootproject"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="28" />
+
+    <application
+        android:allowBackup="true"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:icon="@drawable/kahoot"
+        android:label="@string/app_name"
+        android:layoutDirection="ltr"
+        android:roundIcon="@drawable/kahoot"
+        android:supportsRtl="false"
+        android:testOnly="true"
+        android:theme="@style/AppTheme" >
+        <activity android:name="com.racoon_moon.kahootproject.welcomePage" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.racoon_moon.kahootproject.loginpage" />
+        <activity android:name="com.racoon_moon.kahootproject.create" />
+        <activity android:name="com.racoon_moon.kahootproject.kahootsPage.Kahoots" />
+        <activity android:name="com.racoon_moon.kahootproject.Discover" />
+        <activity android:name="com.racoon_moon.kahootproject.Reports" />
+        <activity android:name="com.racoon_moon.kahootproject.Enterpin" />
+        <activity android:name="com.racoon_moon.kahootproject.kahootsPage.kahoot_fav" />
+        <activity android:name="com.racoon_moon.kahootproject.kahootsPage.kahootsShare" />
+        <activity android:name="com.racoon_moon.kahootproject.search" />
+        <activity android:name="com.racoon_moon.kahootproject.Profile" />
+        <!-- suppress AndroidDomInspection -->
+        <!-- suppress AndroidDomInspection -->
+        <activity android:name="com.racoon_moon.kahootproject.ButtonsFragment" />
+        <activity android:name="com.racoon_moon.kahootproject.FollowQueshtions" />
+        <activity android:name="com.racoon_moon.kahootproject.SignUp" />
+        <activity android:name="com.racoon_moon.kahootproject.AddQuestions" />
+    </application>
+
+</manifest>
