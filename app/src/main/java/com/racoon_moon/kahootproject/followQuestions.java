@@ -1,12 +1,10 @@
 package com.racoon_moon.kahootproject;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class followQuestions extends AppCompatActivity {
 

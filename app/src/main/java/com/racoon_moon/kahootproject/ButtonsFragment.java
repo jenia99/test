@@ -54,15 +54,6 @@ public class ButtonsFragment extends Fragment {
         answer3.setOnClickListener(selectAnswer);
         answer4.setOnClickListener(selectAnswer);
 
-        answer1.setText("abc");
-        answer2.setText("def");
-        answer3.setText("ghi");
-        answer4.setText("jkl");
-
         return view;
     }
-
-
-
-
 }

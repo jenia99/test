@@ -3,77 +3,70 @@ package com.racoon_moon.kahootproject.questions.data;
 public class Question
 {
 
-    private int ID;
-    private String QUESTION;
-    private String ASWER;
-    private String OPA;
-    private String OPB;
-    private String OPC;
+    private String id;
+    private String question;
+    private String answer1;
+    private String answer2;
+    private String answer3;
+    private String answer4;
 
-    public Question()
-    {
-        ID =0;
-        QUESTION="";
-        ASWER="";
-        OPA="";
-        OPB="";
-        OPC="";
+    public Question() {
+
     }
 
-    public Question(String QUESTION, String ASWER, String OPA, String OPB, String OPC)
-    {
-        this.QUESTION = QUESTION;
-        this.ASWER = ASWER;
-        this.OPA = OPA;
-        this.OPB = OPB;
-        this.OPC = OPC;
+    public Question(String question, String answer1, String answer2, String answer3, String answer4) {
+        this.question = question;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
     }
 
-    public int getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
-    public String getQUESTION() {
-        return QUESTION;
+    public String getQuestion() {
+        return question;
     }
 
-    public String getASWER() {
-        return ASWER;
+    public String getAnswer1() {
+        return answer1;
     }
 
-    public String getOPA() {
-        return OPA;
+    public String getAnswer2() {
+        return answer2;
     }
 
-    public String getOPB() {
-        return OPB;
+    public String getAnswer3() {
+        return answer3;
     }
 
-    public String getOPC() {
-        return OPC;
+    public String getAnswer4() {
+        return answer4;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int di) {
+        this.id = id;
     }
 
-    public void setQUESTION(String QUESTION) {
-        this.QUESTION = QUESTION;
+    public void setQuestion(String Question) {
+        this.question = question;
     }
 
-    public void setASWER(String ASWER) {
-        this.ASWER = ASWER;
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
     }
 
-    public void setOPA(String OPA) {
-        this.OPA = OPA;
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
     }
 
-    public void setOPB(String OPB) {
-        this.OPB = OPB;
+    public void setAnswer3(String answer3) {
+        this.answer3 = answer3;
     }
 
-    public void setOPC(String OPC) {
-        this.OPC = OPC;
+    public void setAnswer4(String answer4) {
+        this.answer4 = answer4;
     }
 }

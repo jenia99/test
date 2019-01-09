@@ -67,7 +67,7 @@
         app:layout_constraintStart_toEndOf="@+id/answer3"
         app:layout_constraintTop_toBottomOf="@+id/answer2" />
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,5 +85,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/answer3"
         app:layout_constraintVertical_bias="0.904"
-        app:srcCompat="@drawable/kahoot" />
+        app:srcCompat="@drawable/kahoot" />-->
 </android.support.constraint.ConstraintLayout>

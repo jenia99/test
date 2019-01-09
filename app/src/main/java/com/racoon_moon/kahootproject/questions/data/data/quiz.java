@@ -2,7 +2,7 @@ package com.racoon_moon.kahootproject.questions.data.data;
 
 import android.provider.BaseColumns;
 
-public class quize
+public class quiz
 {
     public static class quizeQuestion implements BaseColumns
     {

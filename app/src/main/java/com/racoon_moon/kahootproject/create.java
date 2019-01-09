@@ -93,9 +93,9 @@ public class create extends AppCompatActivity {
 
     }
 
-    public void signup(View view)
+    public void addQuestions(View view)
     {
-        Intent intent3 = new Intent(this, SignUp.class);
+        Intent intent3 = new Intent(getApplicationContext(), AddQuestions.class);
         startActivity(intent3);
         finish();
 

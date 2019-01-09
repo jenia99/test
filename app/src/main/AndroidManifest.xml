@@ -19,8 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity android:name=".loginpage" />
         <activity android:name=".create" />
         <activity android:name=".kahootsPage.Kahoots" />
@@ -32,10 +30,11 @@
         <activity android:name=".search" />
         <activity android:name=".Profile" />
         <!-- suppress AndroidDomInspection -->
-        <!--suppress AndroidDomInspection -->
+        <!-- suppress AndroidDomInspection -->
         <activity android:name=".ButtonsFragment" />
         <activity android:name=".FollowQueshtions" />
         <activity android:name=".SignUp" />
+        <activity android:name=".AddQuestions"></activity>
     </application>
 
 </manifest>

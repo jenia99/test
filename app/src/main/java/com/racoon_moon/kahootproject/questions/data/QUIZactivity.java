@@ -32,32 +32,32 @@ public class QUIZactivity extends AppCompatActivity
         setContentView (R.layout.questionier);
 
         DBHelper db = new DBHelper (this);
-        Qlist = db.getAllQuestions ();
+        //Qlist = db.getAllQuestions ();
         currentQuestion = Qlist.get (qid);
         QTextView = (TextView) findViewById (R.id.textQ);
         OPA = (Button) findViewById (R.id.OPA);
         OPB = (Button) findViewById (R.id.OPB);
         OPC = (Button) findViewById (R.id.OPC);
         Qnext = (Button) findViewById (R.id.btnNext);
-        setQuestionView ();
+        //setQuestionView ();
     }
-        public void onclick(View v)
-        {
-            Button ansUser= (Button) findViewById (R.id.correct);
-            Button realAns=null;
-//           realAns = (Button) findViewById(ansUser.getCheckedButtonId());
-//            ansUser.clearCheck();
-            Log.d("your_ans", currentQuestion.getASWER ()+ realAns.getText () );
-            if(currentQuestion.getASWER ().equals (realAns.getText ()))
-            {
-                score++;
-                Log.d("score", "your scare"+ score);
-            }
-            if(qid<5)
-            {
-                currentQuestion = Qlist.get (qid);
-                setQuestionView ();
-            }
+//        public void onclick(View v)
+//        {
+//            Button ansUser= (Button) findViewById (R.id.correct);
+//            Button realAns=null;
+////           realAns = (Button) findViewById(ansUser.getCheckedButtonId());
+////            ansUser.clearCheck();
+//            Log.d("your_ans", currentQuestion.getASWER ()+ realAns.getText () );
+//            if(currentQuestion.getASWER ().equals (realAns.getText ()))
+//            {
+//                score++;
+//                Log.d("score", "your scare"+ score);
+//            }
+//            if(qid<5)
+//            {
+//                currentQuestion = Qlist.get (qid);
+//                setQuestionView ();
+//            }
 //            else
 //            {
 //                Intent intent = new Intent (this, ResultActivity.class);
@@ -68,7 +68,7 @@ public class QUIZactivity extends AppCompatActivity
 //                finish ();
 //            }
 
-        }
+        //}
 
     public  boolean onCreateOptionMenu(Menu menu)
     {
@@ -76,12 +76,12 @@ public class QUIZactivity extends AppCompatActivity
         return  true;
     }
 
-    private  void setQuestionView()
-    {
-        QTextView.setText (currentQuestion.getQUESTION ());
-        OPA.setText (currentQuestion.getOPA ());
-        OPB.setText (currentQuestion.getOPB ());
-        OPC.setText (currentQuestion.getOPC ());
-        qid++;
-    }
+//    private  void setQuestionView()
+//    {
+//        QTextView.setText (currentQuestion.getQUESTION ());
+//        OPA.setText (currentQuestion.getOPA ());
+//        OPB.setText (currentQuestion.getOPB ());
+//        OPC.setText (currentQuestion.getOPC ());
+//        qid++;
+//    }
 }
