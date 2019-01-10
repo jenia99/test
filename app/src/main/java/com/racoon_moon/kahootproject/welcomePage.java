@@ -23,7 +23,7 @@ public class welcomePage extends AppCompatActivity {
     }
 
     public void moveToP2(View view) {
-        Intent intent = new Intent(getApplicationContext(), loginpage.class);
+        Intent intent = new Intent(getApplicationContext(), AddQuestions.class);
         startActivity(intent);
         finish();
     }

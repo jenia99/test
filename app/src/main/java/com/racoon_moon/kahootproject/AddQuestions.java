@@ -1,6 +1,8 @@
 package com.racoon_moon.kahootproject;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,8 +39,6 @@ public class AddQuestions extends AppCompatActivity {
         answerC = findViewById(R.id.answerC);
         answerD = findViewById(R.id.answerD);
 
-
-
         answerA.setVisibility(View.INVISIBLE);
         answerB.setVisibility(View.INVISIBLE);
         answerC.setVisibility(View.INVISIBLE);
@@ -54,6 +54,17 @@ public class AddQuestions extends AppCompatActivity {
         answer3.setOnClickListener(selectButton);
         answer4.setOnClickListener(selectButton);
 
+        question.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+
+                }else{
+                    //newQuestion.setQuestion(question.getText().toString());
+                }
+            }
+        });
 
     }
 
@@ -69,15 +80,45 @@ public class AddQuestions extends AppCompatActivity {
                     answer3.getText().toString().isEmpty() || answer4.getText().toString().isEmpty()){
             Toast.makeText(this, "Missing Answers", Toast.LENGTH_SHORT).show();
         }
-        //newQuestion = new Question(question.getText().toString(), answer1.getText().toString(),
-                //answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString());
-        //db.insertKahoot(newQuestion.getQuestion(), newQuestion.getAnswer1(), newQuestion.getAnswer2(),
-                //newQuestion.getAnswer3(), newQuestion.getAnswer4());
+        newQuestion = new Question(question.getText().toString(), answer1.getText().toString(),
+                answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString());
+        db.insertKahoot(newQuestion.getQuestion(), newQuestion.getAnswer1(), newQuestion.getAnswer2(),
+                newQuestion.getAnswer3(), newQuestion.getAnswer4());
         question.setText("");
         answer1.setText("");
         answer2.setText("");
         answer3.setText("");
         answer4.setText("");
+        Cursor cursor = db.getAll();
+        if (cursor.getCount() == 0){
+            showMessage("Error", "Nothing to show");
+            return;
+        }
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(KahootsDatabase.TABLE_NAME + "\n");
+        while (cursor.moveToNext()){
+            buffer.append("ID: " + cursor.getString(0) + "\n");
+            buffer.append("Question: " + cursor.getString(1) + "\n");
+            buffer.append("answer1: " + cursor.getString(2) + "\n");
+            buffer.append("answer2: " + cursor.getString(3) + "\n");
+            buffer.append("answer3: " + cursor.getString(4) + "\n");
+            buffer.append("answer4: " + cursor.getString(5) + "\n\n");
+        }
+        showMessage("Data", buffer.toString());
+//        Question readQuestion = db.readQuestion("1");
+//        question.setText(readQuestion.getQuestion());
+//        answer1.setText(readQuestion.getAnswer1());
+//        answer2.setText(readQuestion.getAnswer2());
+//        answer3.setText(readQuestion.getAnswer3());
+//        answer4.setText(readQuestion.getAnswer4());
+    }
+
+    public void showMessage(String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
     }
 
     private View.OnClickListener selectButton = new View.OnClickListener() {

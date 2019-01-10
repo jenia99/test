@@ -2,11 +2,15 @@ package com.racoon_moon.kahootproject.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.racoon_moon.kahootproject.AddQuestions;
 import com.racoon_moon.kahootproject.questions.data.Question;
+
+import java.security.PublicKey;
 
 public class KahootsDatabase extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
@@ -19,6 +23,11 @@ public class KahootsDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_ANSWER2 = "Answer2";
     public static final String COLUMN_ANSWER3 = "Answer3";
     public static final String COLUMN_ANSWER4 = "Answer4";
+
+    public static final String[] COLUMNS = {COLUMN_ID, COLUMN_QUESTION, COLUMN_ANSWER1,
+                                            COLUMN_ANSWER2, COLUMN_ANSWER3, COLUMN_ANSWER4};
+
+    SQLiteDatabase db = null;
 
     public KahootsDatabase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -43,7 +52,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
 
     public boolean insertKahoot(String question, String answer1, String answer2, String answer3, String answer4){
         AddQuestions.kahootCounter++;
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_QUESTION, question);
         contentValues.put(COLUMN_ANSWER1, answer1);
@@ -57,7 +66,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
     }
 
     public int updateKahoot(Question question){
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         int ID = 0;
 
         ContentValues contentValues = new ContentValues();
@@ -66,5 +75,45 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         ID = db.update(TABLE_NAME, contentValues, COLUMN_ID + " = ?",
                 new String[] {question.getId()});
         return ID;
+    }
+
+    public Question readQuestion(String id){
+        Question question = null;
+        Cursor cursor = null;
+
+        try {
+            Log.i("TRY", "TRING");
+            cursor = db.query(TABLE_NAME, COLUMNS, COLUMN_ID + " = ?", new String[] {id},
+                    null, null, null, null);
+            Log.i("CURSOR CREATION", "CURSOR CREATED");
+            if (cursor != null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+
+                question = new Question();
+                Log.i("CREATE QUESTION OBJECT", "QUESTION CREATED");
+                question.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
+                Log.i("SET QUESTION", "QUESTION: " + cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
+                question.setAnswer1(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER1)));
+                question.setAnswer2(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER2)));
+                question.setAnswer3(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER3)));
+                question.setAnswer4(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER4)));
+
+
+            }
+        }catch (Throwable t){
+            Log.i("CATCH", "FAILED TO READ");
+            t.printStackTrace();
+        }
+
+        if (cursor != null){
+            cursor.close();
+        }
+        return question;
+    }
+
+    public Cursor getAll(){
+        db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return result;
     }
 }
