@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     tools:context=".AddQuestions">
 
     <fragment
@@ -16,12 +18,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:onClick="Try1"
+        app:layout_constraintBottom_toTopOf="@+id/addQuestionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/addQuestionButton"
-        tools:layout="@layout/buttons_fragment"/>
+        tools:layout="@layout/buttons_fragment" />
 
 
     <Button

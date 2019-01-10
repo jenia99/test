@@ -46,11 +46,11 @@ public class Question
         return answer4;
     }
 
-    public void setId(int di) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void setQuestion(String Question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 

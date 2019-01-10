@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.racoon_moon.kahootproject.database.KahootsDatabase;
 import com.racoon_moon.kahootproject.questions.data.Question;
@@ -82,35 +83,36 @@ public class AddQuestions extends AppCompatActivity {
         }
         newQuestion = new Question(question.getText().toString(), answer1.getText().toString(),
                 answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString());
-        db.insertKahoot(newQuestion.getQuestion(), newQuestion.getAnswer1(), newQuestion.getAnswer2(),
-                newQuestion.getAnswer3(), newQuestion.getAnswer4());
+        //db.insertKahoot(newQuestion.getQuestion(), newQuestion.getAnswer1(), newQuestion.getAnswer2(),
+                //newQuestion.getAnswer3(), newQuestion.getAnswer4());
         question.setText("");
         answer1.setText("");
         answer2.setText("");
         answer3.setText("");
         answer4.setText("");
-        Cursor cursor = db.getAll();
-        if (cursor.getCount() == 0){
-            showMessage("Error", "Nothing to show");
-            return;
-        }
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(KahootsDatabase.TABLE_NAME + "\n");
-        while (cursor.moveToNext()){
-            buffer.append("ID: " + cursor.getString(0) + "\n");
-            buffer.append("Question: " + cursor.getString(1) + "\n");
-            buffer.append("answer1: " + cursor.getString(2) + "\n");
-            buffer.append("answer2: " + cursor.getString(3) + "\n");
-            buffer.append("answer3: " + cursor.getString(4) + "\n");
-            buffer.append("answer4: " + cursor.getString(5) + "\n\n");
-        }
-        showMessage("Data", buffer.toString());
-//        Question readQuestion = db.readQuestion("1");
-//        question.setText(readQuestion.getQuestion());
-//        answer1.setText(readQuestion.getAnswer1());
-//        answer2.setText(readQuestion.getAnswer2());
-//        answer3.setText(readQuestion.getAnswer3());
-//        answer4.setText(readQuestion.getAnswer4());
+//        Cursor cursor = db.getAll();
+//        if (cursor.getCount() == 0){
+//            showMessage("Error", "Nothing to show");
+//            return;
+//        }
+//        StringBuffer buffer = new StringBuffer();
+//        buffer.append(KahootsDatabase.TABLE_NAME + "\n");
+//        while (cursor.moveToNext()){
+//            buffer.append("ID: " + cursor.getString(0) + "\n");
+//            buffer.append("Question: " + cursor.getString(1) + "\n");
+//            buffer.append("answer1: " + cursor.getString(2) + "\n");
+//            buffer.append("answer2: " + cursor.getString(3) + "\n");
+//            buffer.append("answer3: " + cursor.getString(4) + "\n");
+//            buffer.append("answer4: " + cursor.getString(5) + "\n\n");
+//        }
+//        showMessage("Data", buffer.toString());
+        newQuestion = db.readQuestion("2");
+        Toast.makeText(this, newQuestion.getAnswer1(), Toast.LENGTH_SHORT).show();
+        question.setText(newQuestion.getQuestion());
+        answer1.setText(newQuestion.getAnswer1());
+        answer2.setText(newQuestion.getAnswer2());
+        answer3.setText(newQuestion.getAnswer3());
+        answer4.setText(newQuestion.getAnswer4());
     }
 
     public void showMessage(String title, String message){

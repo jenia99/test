@@ -65,25 +65,29 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         }else return true;
     }
 
-    public int updateKahoot(Question question){
+    public boolean updateKahoot(Question question){
         db = this.getWritableDatabase();
-        int ID = 0;
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ID, question.getId());
+        contentValues.put(COLUMN_QUESTION, question.getQuestion());
+        contentValues.put(COLUMN_ANSWER1, question.getAnswer1());
+        contentValues.put(COLUMN_ANSWER2, question.getAnswer2());
+        contentValues.put(COLUMN_ANSWER3, question.getAnswer3());
+        contentValues.put(COLUMN_ANSWER4, question.getAnswer4());
 
-        ID = db.update(TABLE_NAME, contentValues, COLUMN_ID + " = ?",
+        db.update(TABLE_NAME, contentValues, COLUMN_ID + " = ?",
                 new String[] {question.getId()});
-        return ID;
+        return true;
     }
 
     public Question readQuestion(String id){
+        db = this.getReadableDatabase();
         Question question = null;
         Cursor cursor = null;
 
         try {
             Log.i("TRY", "TRING");
-            cursor = db.query(TABLE_NAME, COLUMNS, COLUMN_ID + " = ?", new String[] {id},
+            cursor = db.query(TABLE_NAME, COLUMNS, COLUMN_ID + " = ?", new String[] { id },
                     null, null, null, null);
             Log.i("CURSOR CREATION", "CURSOR CREATED");
             if (cursor != null && cursor.getCount() > 0) {
@@ -94,9 +98,13 @@ public class KahootsDatabase extends SQLiteOpenHelper {
                 question.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
                 Log.i("SET QUESTION", "QUESTION: " + cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
                 question.setAnswer1(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER1)));
+                Log.i("SET ANSWER1", "ANSWER1: " + cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER1)));
                 question.setAnswer2(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER2)));
+                Log.i("SET ANSWER2", "ANSWER2: " + cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER2)));
                 question.setAnswer3(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER3)));
+                Log.i("SET ANSWER3", "ANSWER3: " + cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER3)));
                 question.setAnswer4(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER4)));
+                Log.i("SET ANSWER4", "ANSWER4: " + cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER4)));
 
 
             }
