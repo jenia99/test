@@ -16,6 +16,8 @@ import com.racoon_moon.kahootproject.questions.data.Question;
 
 public class AddQuestions extends AppCompatActivity {
 
+    TextView id;
+
     EditText question, answerA, answerB, answerC, answerD;
 
     Button answer1, answer2, answer3, answer4;
@@ -33,6 +35,11 @@ public class AddQuestions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_questions);
         db = new KahootsDatabase(this);
+
+
+
+        id = findViewById(R.id.id);
+        id.setText("1");
 
         question = findViewById(R.id.question);
         answerA = findViewById(R.id.answerA);
@@ -81,7 +88,7 @@ public class AddQuestions extends AppCompatActivity {
                     answer3.getText().toString().isEmpty() || answer4.getText().toString().isEmpty()){
             Toast.makeText(this, "Missing Answers", Toast.LENGTH_SHORT).show();
         }
-        newQuestion = new Question(question.getText().toString(), answer1.getText().toString(),
+        newQuestion = new Question(id.getText().toString(), question.getText().toString(), answer1.getText().toString(),
                 answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString());
         //db.insertKahoot(newQuestion.getQuestion(), newQuestion.getAnswer1(), newQuestion.getAnswer2(),
                 //newQuestion.getAnswer3(), newQuestion.getAnswer4());
@@ -90,6 +97,7 @@ public class AddQuestions extends AppCompatActivity {
         answer2.setText("");
         answer3.setText("");
         answer4.setText("");
+        id.setText(String.valueOf(Integer.parseInt(id.getText().toString()) + 1));
 //        Cursor cursor = db.getAll();
 //        if (cursor.getCount() == 0){
 //            showMessage("Error", "Nothing to show");
@@ -106,6 +114,7 @@ public class AddQuestions extends AppCompatActivity {
 //            buffer.append("answer4: " + cursor.getString(5) + "\n\n");
 //        }
 //        showMessage("Data", buffer.toString());
+        Integer deletedRows = db.deleteQuestion("2");
         newQuestion = db.readQuestion("2");
         Toast.makeText(this, newQuestion.getAnswer1(), Toast.LENGTH_SHORT).show();
         question.setText(newQuestion.getQuestion());

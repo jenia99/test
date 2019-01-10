@@ -37,7 +37,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table if not exists " + TABLE_NAME + " ( "
-                + COLUMN_ID + " INTEGER PRIMARY KEY, "
+                + COLUMN_ID + " VARCHAR PRIMARY KEY, "
                 + COLUMN_QUESTION + " VARCHAR,"
                 + COLUMN_ANSWER1 + " VARCHAR,"
                 + COLUMN_ANSWER2 + " VARCHAR,"
@@ -86,7 +86,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         try {
-            Log.i("TRY", "TRING");
+            Log.i("TRY", "TRYING");
             cursor = db.query(TABLE_NAME, COLUMNS, COLUMN_ID + " = ?", new String[] { id },
                     null, null, null, null);
             Log.i("CURSOR CREATION", "CURSOR CREATED");
@@ -117,6 +117,11 @@ public class KahootsDatabase extends SQLiteOpenHelper {
             cursor.close();
         }
         return question;
+    }
+
+    public Integer deleteQuestion(String id){
+        db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[] { id });
     }
 
     public Cursor getAll(){
