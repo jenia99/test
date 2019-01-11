@@ -10,8 +10,6 @@ import android.util.Log;
 import com.racoon_moon.kahootproject.AddQuestions;
 import com.racoon_moon.kahootproject.questions.data.Question;
 
-import java.security.PublicKey;
-
 public class KahootsDatabase extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "KahootsQuestions";
@@ -50,10 +48,11 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
     }
 
-    public boolean insertKahoot(String question, String answer1, String answer2, String answer3, String answer4){
+    public boolean insertKahoot(String id, String question, String answer1, String answer2, String answer3, String answer4){
         AddQuestions.kahootCounter++;
         db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ID, id);
         contentValues.put(COLUMN_QUESTION, question);
         contentValues.put(COLUMN_ANSWER1, answer1);
         contentValues.put(COLUMN_ANSWER2, answer2);

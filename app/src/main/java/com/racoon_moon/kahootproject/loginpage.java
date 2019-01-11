@@ -13,8 +13,7 @@ import android.widget.TextView;
 
 public class loginpage extends AppCompatActivity {
 
-
-
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +25,15 @@ public class loginpage extends AppCompatActivity {
 
     public void moveToDiscover(View view)
     {
-        Intent intent2 = new Intent(this, Discover.class);
-        startActivity(intent2);
+        intent = new Intent(this, Discover.class);
+        startActivity(intent);
         finish();
 
     }
 
     public void GoogleBtn(View v)
     {
-        Intent intent = new Intent();
+        intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse("https://www.google.com/intl/iw/gmail/about/#"));
@@ -42,7 +41,7 @@ public class loginpage extends AppCompatActivity {
     }
     public void outlookBtn(View v)
     {
-        Intent intent = new Intent();
+        intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse("https://outlook.live.com/owa/"));
@@ -66,4 +65,10 @@ public class loginpage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed(){
+        intent = new Intent(getApplicationContext(), welcomePage.class);
+        startActivity(intent);
+        finish();
+    }
 }

@@ -17,6 +17,9 @@ import static com.racoon_moon.kahootproject.R.id.getPhoto;
 import static com.racoon_moon.kahootproject.R.id.imageView5;
 
 public class create extends AppCompatActivity {
+
+    Intent intent;
+
     ImageView imageView;
     Bitmap bitmap;
     Button btn;
@@ -87,20 +90,25 @@ public class create extends AppCompatActivity {
 
     public void moveToP1(View view)
     {
-        Intent intent3 = new Intent(this, Discover.class);
-        startActivity(intent3);
+        intent = new Intent(this, Discover.class);
+        startActivity(intent);
         finish();
 
     }
 
     public void addQuestions(View view)
     {
-        Intent intent3 = new Intent(getApplicationContext(), AddQuestions.class);
-        startActivity(intent3);
+        intent = new Intent(getApplicationContext(), AddQuestions.class);
+        startActivity(intent);
         finish();
 
     }
 
-
+    @Override
+    public void onBackPressed(){
+        intent = new Intent(getApplicationContext(), Discover.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

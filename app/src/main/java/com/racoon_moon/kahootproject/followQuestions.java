@@ -1,5 +1,6 @@
 package com.racoon_moon.kahootproject;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.widget.Button;
 
 
 public class followQuestions extends AppCompatActivity {
+
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +25,12 @@ public class followQuestions extends AppCompatActivity {
         answer2.setText("As a teacher");
         answer3.setText("Socially");
         answer4.setText("For work");
+    }
+
+    @Override
+    public void onBackPressed(){
+        intent = new Intent(getApplicationContext(), welcomePage.class);
+        startActivity(intent);
+        finish();
     }
 }

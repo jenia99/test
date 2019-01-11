@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 public class welcomePage extends AppCompatActivity {
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,16 +25,19 @@ public class welcomePage extends AppCompatActivity {
     }
 
     public void moveToP2(View view) {
-        Intent intent = new Intent(getApplicationContext(), AddQuestions.class);
+        intent = new Intent(getApplicationContext(), loginpage.class);
         startActivity(intent);
         finish();
     }
     public void buttons(View view) {
-        Intent intent = new Intent(getApplicationContext(), SignUp.class);
+        intent = new Intent(getApplicationContext(), SignUp.class);
         startActivity(intent);
         finish();
     }
 
-
-
+    @Override
+    public void onBackPressed(){
+        finish();
+        System.exit(0);
+    }
 }

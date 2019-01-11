@@ -140,18 +140,18 @@ activity#com.racoon_moon.kahootproject.ButtonsFragment
 ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:34:9-53
 	android:name
 		ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:34:19-50
-activity#com.racoon_moon.kahootproject.FollowQueshtions
-ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:35:9-54
-	android:name
-		ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:35:19-51
 activity#com.racoon_moon.kahootproject.SignUp
-ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:36:9-44
+ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:35:9-44
 	android:name
-		ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:36:19-41
+		ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:35:19-41
 activity#com.racoon_moon.kahootproject.AddQuestions
-ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:37:9-59
+ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:36:9-50
 	android:name
-		ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:37:19-47
+		ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:36:19-47
+activity#com.racoon_moon.kahootproject.KahootsV2
+ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:37:9-56
+	android:name
+		ADDED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml:37:19-44
 uses-sdk
 INJECTED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\src\main\AndroidManifest.xml

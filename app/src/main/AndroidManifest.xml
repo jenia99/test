@@ -32,9 +32,9 @@
         <!-- suppress AndroidDomInspection -->
         <!-- suppress AndroidDomInspection -->
         <activity android:name=".ButtonsFragment" />
-        <activity android:name=".FollowQueshtions" />
         <activity android:name=".SignUp" />
-        <activity android:name=".AddQuestions"></activity>
+        <activity android:name=".AddQuestions" />
+        <activity android:name=".KahootsV2"></activity>
     </application>
 
 </manifest>

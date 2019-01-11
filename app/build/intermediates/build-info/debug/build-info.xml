@@ -2,62 +2,96 @@
 <instant-run
     abi="x86"
     api-level="27"
-    build-mode="COLD"
+    build-mode="FULL"
     density="420dpi"
     format="10"
-    ir-eligibility="METHOD_DELETED"
+    ir-eligibility="FIELD_ADDED"
     plugin-version="3.2.0"
-    timestamp="1547089389091"
+    timestamp="1547174674492"
     token="2577822183376793856"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="4673" />
+        duration="1239" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="124" />
+        duration="302" />
     <task
         name="verifier"
-        duration="41" />
+        duration="77" />
 
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\resources\instant-run\debug\resources-debug.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        type="SPLIT" />
     <artifact
         location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
         type="SPLIT" />
     <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+        type="SPLIT" />
+    <artifact
         location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
         type="SPLIT" />
+    <artifact
+        location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\instant-run-apk\debug\app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1547088650448"
-        verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
-            type="SPLIT" />
+        ir-eligibility="FIELD_ADDED"
+        timestamp="1547174674492"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\resources\instant-run\debug\resources-debug.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
         <artifact
+            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+        <artifact
             location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
@@ -66,35 +100,14 @@
             location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\instant-run-apk\debug\app-debug.apk"
-            type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1547089061599"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
-            type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="METHOD_DELETED"
-        timestamp="1547089389091"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
+        <artifact
+            location="C:\Users\Jenok\AndroidStudioProjects\kahootProject2\app\build\intermediates\instant-run-apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
 
 </instant-run>

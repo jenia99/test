@@ -39,7 +39,7 @@ public class AddQuestions extends AppCompatActivity {
 
 
         id = findViewById(R.id.id);
-        id.setText("1");
+        id.setText("6");
 
         question = findViewById(R.id.question);
         answerA = findViewById(R.id.answerA);
@@ -61,21 +61,7 @@ public class AddQuestions extends AppCompatActivity {
         answer2.setOnClickListener(selectButton);
         answer3.setOnClickListener(selectButton);
         answer4.setOnClickListener(selectButton);
-
-        question.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-
-                }else{
-                    //newQuestion.setQuestion(question.getText().toString());
-                }
-            }
-        });
-
     }
-
 
     public void addQuestion(View view){
         answerA.clearFocus();
@@ -90,7 +76,7 @@ public class AddQuestions extends AppCompatActivity {
         }
         newQuestion = new Question(id.getText().toString(), question.getText().toString(), answer1.getText().toString(),
                 answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString());
-        //db.insertKahoot(newQuestion.getQuestion(), newQuestion.getAnswer1(), newQuestion.getAnswer2(),
+        //db.insertKahoot(newQuestion.getId(), newQuestion.getQuestion(), newQuestion.getAnswer1(), newQuestion.getAnswer2(),
                 //newQuestion.getAnswer3(), newQuestion.getAnswer4());
         question.setText("");
         answer1.setText("");
@@ -98,30 +84,39 @@ public class AddQuestions extends AppCompatActivity {
         answer3.setText("");
         answer4.setText("");
         id.setText(String.valueOf(Integer.parseInt(id.getText().toString()) + 1));
-//        Cursor cursor = db.getAll();
-//        if (cursor.getCount() == 0){
-//            showMessage("Error", "Nothing to show");
-//            return;
-//        }
-//        StringBuffer buffer = new StringBuffer();
-//        buffer.append(KahootsDatabase.TABLE_NAME + "\n");
-//        while (cursor.moveToNext()){
-//            buffer.append("ID: " + cursor.getString(0) + "\n");
-//            buffer.append("Question: " + cursor.getString(1) + "\n");
-//            buffer.append("answer1: " + cursor.getString(2) + "\n");
-//            buffer.append("answer2: " + cursor.getString(3) + "\n");
-//            buffer.append("answer3: " + cursor.getString(4) + "\n");
-//            buffer.append("answer4: " + cursor.getString(5) + "\n\n");
-//        }
-//        showMessage("Data", buffer.toString());
-        Integer deletedRows = db.deleteQuestion("2");
+        Integer deleteRow = db.deleteQuestion("1");
+        deleteRow = db.deleteQuestion("2");
+        deleteRow = db.deleteQuestion("3");
+        deleteRow = db.deleteQuestion("4");
+        deleteRow = db.deleteQuestion("6");
+        //Toast.makeText(this, "Row Deleted: " + deleteRow, Toast.LENGTH_SHORT).show();
+        Cursor cursor = db.getAll();
+        if (cursor.getCount() == 0){
+            //showMessage("Error", "Nothing to show");
+            //return;
+        }
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(KahootsDatabase.TABLE_NAME + "\n");
+        while (cursor.moveToNext()){
+            buffer.append("ID: " + cursor.getString(0) + "\n");
+            buffer.append("Question: " + cursor.getString(1) + "\n");
+            buffer.append("answer1: " + cursor.getString(2) + "\n");
+            buffer.append("answer2: " + cursor.getString(3) + "\n");
+            buffer.append("answer3: " + cursor.getString(4) + "\n");
+            buffer.append("answer4: " + cursor.getString(5) + "\n\n");
+        }
+        //showMessage("Kahoots", buffer.toString());
         newQuestion = db.readQuestion("2");
-        Toast.makeText(this, newQuestion.getAnswer1(), Toast.LENGTH_SHORT).show();
-        question.setText(newQuestion.getQuestion());
-        answer1.setText(newQuestion.getAnswer1());
-        answer2.setText(newQuestion.getAnswer2());
-        answer3.setText(newQuestion.getAnswer3());
-        answer4.setText(newQuestion.getAnswer4());
+        if (newQuestion != null) {
+            Toast.makeText(this, newQuestion.getAnswer1(), Toast.LENGTH_SHORT).show();
+            question.setText(newQuestion.getQuestion());
+            answer1.setText(newQuestion.getAnswer1());
+            answer2.setText(newQuestion.getAnswer2());
+            answer3.setText(newQuestion.getAnswer3());
+            answer4.setText(newQuestion.getAnswer4());
+        }else{
+            Toast.makeText(this, "Question does not exists", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showMessage(String title, String message){
@@ -207,4 +202,11 @@ public class AddQuestions extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed(){
+        intent = new Intent(getApplicationContext(), create.class);
+        startActivity(intent);
+        finish();
+    }
 }

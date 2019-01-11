@@ -39,9 +39,9 @@
         <!-- suppress AndroidDomInspection -->
         <!-- suppress AndroidDomInspection -->
         <activity android:name="com.racoon_moon.kahootproject.ButtonsFragment" />
-        <activity android:name="com.racoon_moon.kahootproject.FollowQueshtions" />
         <activity android:name="com.racoon_moon.kahootproject.SignUp" />
         <activity android:name="com.racoon_moon.kahootproject.AddQuestions" />
+        <activity android:name="com.racoon_moon.kahootproject.KahootsV2" />
     </application>
 
 </manifest>

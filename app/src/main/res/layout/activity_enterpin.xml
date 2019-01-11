@@ -23,95 +23,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mfwc" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="118dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints,UnknownId">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="0dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/reports"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:drawableTop="@android:drawable/ic_menu_sort_by_size"
-                android:onClick="moveToReports"
-                android:text="reports"
-                android:textColor="#000000"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/kahoots"
-                android:layout_width="74dp"
-                android:layout_height="match_parent"
-                android:drawableTop="@android:drawable/alert_light_frame"
-                android:onClick="moveToKahoots"
-                android:text="kahoots"
-                android:textColor="#000000"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/enterpin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:drawableTop="@android:drawable/ic_dialog_dialer"
-                android:onClick="moveToEnterpin"
-                android:text="enter \npin"
-                android:textColor="#000000"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/create"
-                android:layout_width="68dp"
-                android:layout_height="match_parent"
-                android:drawableTop="@android:drawable/ic_input_add"
-                android:onClick="moveToCreate"
-                android:text="create"
-                android:textColor="#000000"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/discover"
-                android:layout_width="68dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:drawableTop="@android:drawable/ic_menu_recent_history"
-                android:onClick="moveToDiscover"
-                android:text="discover"
-                android:textColor="#000000"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-    </RelativeLayout>
-
     <EditText
         android:id="@+id/GamePin"
         android:layout_width="239dp"
@@ -139,18 +50,18 @@
         android:layout_height="61dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="196dp"
         android:background="#000000"
         android:text="Enter"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GamePin" />
 
     <TextView
         android:id="@+id/TermPrivacy"
@@ -161,13 +72,22 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:text="Term | Privacy"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Enter" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_bar">
+    </android.support.design.widget.BottomNavigationView>
 
 </android.support.constraint.ConstraintLayout>
