@@ -2,16 +2,25 @@ package com.racoon_moon.kahootproject;
 
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.racoon_moon.kahootproject.database.KahootsDatabase;
+import com.racoon_moon.kahootproject.questions.data.Quiz;
 
 import static com.racoon_moon.kahootproject.R.id.getPhoto;
 import static com.racoon_moon.kahootproject.R.id.imageView5;
@@ -19,19 +28,26 @@ import static com.racoon_moon.kahootproject.R.id.imageView5;
 public class create extends AppCompatActivity {
 
     Intent intent;
+    KahootsDatabase db;
 
+    TextView textView;
     ImageView imageView;
     Bitmap bitmap;
     Button btn;
+    Quiz quiz;
+    Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+        Log.i("TRY TO CREATE DATABASE", "TRYING");
+        db = new KahootsDatabase(this);
+        Log.i("TRY YO CREATE DATABASE", "SUCCESS");
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        Spinner spinner =(Spinner)  findViewById(R.id.vis);
+        spinner =(Spinner)  findViewById(R.id.vis);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.planets_array, android.R.layout.simple_spinner_item);
@@ -83,11 +99,6 @@ public class create extends AppCompatActivity {
     }
 
 
-
-
-
-
-
     public void moveToP1(View view)
     {
         intent = new Intent(this, Discover.class);
@@ -96,8 +107,28 @@ public class create extends AppCompatActivity {
 
     }
 
-    public void addQuestions(View view)
-    {
+    public void addQuestions(View view) {
+        imageView = findViewById(R.id.imageView5);
+        textView = findViewById(R.id.enterTitle);
+        spinner.findViewById(R.id.vis);
+        boolean isVisible;
+        String visibility = spinner.getSelectedItem().toString();
+        if (visibility == "everyone"){
+            isVisible = true;
+        }else{
+            isVisible = false;
+        }
+        Bitmap hasPicture = getBitmap();
+        if (getBitmap() == null){
+            Bitmap bitmap = Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas();
+            Paint paint = new Paint();
+            paint.setColor(0xFFFFFFFF);
+            canvas.drawRect(0F, 0F, 50, 50, paint);
+            hasPicture = bitmap;
+        }
+        quiz = new Quiz(textView.getText().toString(), hasPicture, isVisible);
+        db.insertQuiz(quiz);
         intent = new Intent(getApplicationContext(), AddQuestions.class);
         startActivity(intent);
         finish();
@@ -109,6 +140,10 @@ public class create extends AppCompatActivity {
         intent = new Intent(getApplicationContext(), Discover.class);
         startActivity(intent);
         finish();
+    }
+
+    public Bitmap getBitmap(){
+        return bitmap;
     }
 
 }

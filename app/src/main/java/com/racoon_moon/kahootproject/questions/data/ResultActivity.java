@@ -61,9 +61,9 @@ public class ResultActivity extends AppCompatActivity
         int id = item.getItemId ();
         if(id == R.id.action_settings)
         {
-            Intent settingIntent = new Intent (this, QUIZactivity.class);
-            startActivity (settingIntent);
-            return  true;
+            //Intent settingIntent = new Intent (this, QUIZactivity.class);
+            //startActivity (settingIntent);
+            //return  true;
 
         }
         return  super.onOptionsItemSelected (item);
