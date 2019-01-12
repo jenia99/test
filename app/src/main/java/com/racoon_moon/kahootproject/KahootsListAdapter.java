@@ -44,7 +44,7 @@ public class KahootsListAdapter extends ArrayAdapter<Quiz> {
         if (currentQuiz.getPicture() != null){
             quizImage.setImageBitmap(currentQuiz.getPicture());
         }else {
-            quizImage.setImageDrawable(context.getResources().getDrawable(R.drawable.draft));
+            quizImage.setImageDrawable(context.getResources().getDrawable(R.drawable.insert_photo));
         }
 
         return view;

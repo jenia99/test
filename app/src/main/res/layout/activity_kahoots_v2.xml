@@ -130,6 +130,7 @@
 
     <ListView
         android:id="@+id/kahootsList"
+        style="@android:style/Widget.DeviceDefault.ExpandableListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"

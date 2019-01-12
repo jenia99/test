@@ -105,6 +105,8 @@ public class KahootsDatabase extends SQLiteOpenHelper {
             if (data != null && data.length > 0){
                 contentValues.put(COLUMN_IMAGE, data);
             }
+        }else {
+            contentValues.put(COLUMN_IMAGE, "null");
         }
 
         long result = db.insert(QUIZ_TABLE_NAME, null, contentValues);
@@ -198,18 +200,31 @@ public class KahootsDatabase extends SQLiteOpenHelper {
 
     public List<Quiz> getAllQuizzes(){
         db = this.getWritableDatabase();
+        int counter = 0;
         List<Quiz> result = new ArrayList<Quiz>();
         Bitmap image;
 
         try {
             Cursor cursor = db.rawQuery("SELECT * FROM " + QUIZ_TABLE_NAME, null);
             while (cursor.moveToNext()) {
+                counter++;
                 Quiz quiz = new Quiz();
                 quiz.setId(cursor.getString(0));
                 quiz.setName(cursor.getString(1));
-                image = BitmapFactory.decodeByteArray(cursor.getBlob(2), 0, cursor.getBlob(2).length);
-                quiz.setPicture(image);
-                if (cursor.getString(3) == "everyone") {
+                try {
+                    if (cursor.getString(2).equals("null")){
+                        quiz.setPicture(null);
+                    }
+                }catch (Throwable t){
+                    t.printStackTrace();
+                }
+                try{
+                    image = BitmapFactory.decodeByteArray(cursor.getBlob(2), 0, cursor.getBlob(2).length);
+                    quiz.setPicture(image);
+                }catch (Throwable t){
+                    t.printStackTrace();
+                }
+                if (cursor.getString(3).equals("everyone")) {
                     quiz.setVisibility(true);
                 } else {
                     quiz.setVisibility(false);
@@ -220,6 +235,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         }catch (Throwable t){
             t.printStackTrace();
         }
+        Log.i("NUMBER OF RECORDS", "NUM = " + counter);
         return result;
     }
 }

@@ -4,6 +4,7 @@ package com.racoon_moon.kahootproject;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -87,8 +88,8 @@ public class create extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        bitmap = bitmap;
+        Bitmap picture = (Bitmap) data.getExtras().get("data");
+        bitmap = picture;
         imageView.setImageBitmap(bitmap);
 
         if(bitmap!=null){
@@ -113,25 +114,27 @@ public class create extends AppCompatActivity {
         spinner.findViewById(R.id.vis);
         boolean isVisible;
         String visibility = spinner.getSelectedItem().toString();
-        if (visibility == "everyone"){
+        if (visibility.equals("everyone")){
             isVisible = true;
         }else{
             isVisible = false;
         }
         Bitmap hasPicture = getBitmap();
         if (getBitmap() == null){
-            Bitmap bitmap = Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas();
-            Paint paint = new Paint();
-            paint.setColor(0xFFFFFFFF);
-            canvas.drawRect(0F, 0F, 50, 50, paint);
-            hasPicture = bitmap;
+//            Bitmap bitmap = Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888);
+//            Canvas canvas = new Canvas();
+//            Paint paint = new Paint();
+//            paint.setColor(0xFFFFFFFF);
+//            canvas.drawRect(0F, 0F, 50, 50, paint);
+//            hasPicture = bitmap;
+//            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.insert_photo);
+            Log.i("BITMAP", "BITMAP = " + hasPicture);
         }
         quiz = new Quiz(textView.getText().toString(), hasPicture, isVisible);
         db.insertQuiz(quiz);
-        intent = new Intent(getApplicationContext(), AddQuestions.class);
-        startActivity(intent);
-        finish();
+//        intent = new Intent(getApplicationContext(), AddQuestions.class);
+//        startActivity(intent);
+//        finish();
 
     }
 
