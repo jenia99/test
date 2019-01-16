@@ -21,7 +21,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.racoon_moon.kahootproject.database.KahootsDatabase;
+import com.racoon_moon.kahootproject.questions.data.Question;
 import com.racoon_moon.kahootproject.questions.data.Quiz;
+
+import java.util.List;
 
 import static com.racoon_moon.kahootproject.R.id.getPhoto;
 import static com.racoon_moon.kahootproject.R.id.imageView5;
@@ -41,9 +44,7 @@ public class create extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
-        Log.i("TRY TO CREATE DATABASE", "TRYING");
         db = new KahootsDatabase(this);
-        Log.i("TRY YO CREATE DATABASE", "SUCCESS");
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -120,21 +121,14 @@ public class create extends AppCompatActivity {
             isVisible = false;
         }
         Bitmap hasPicture = getBitmap();
-        if (getBitmap() == null){
-//            Bitmap bitmap = Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888);
-//            Canvas canvas = new Canvas();
-//            Paint paint = new Paint();
-//            paint.setColor(0xFFFFFFFF);
-//            canvas.drawRect(0F, 0F, 50, 50, paint);
-//            hasPicture = bitmap;
-//            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.insert_photo);
-            Log.i("BITMAP", "BITMAP = " + hasPicture);
-        }
-        quiz = new Quiz(textView.getText().toString(), hasPicture, isVisible);
+        String quiz_id = String.valueOf(db.getAllQuizzes().size());
+
+        quiz = new Quiz(quiz_id, textView.getText().toString(), hasPicture, isVisible);
         db.insertQuiz(quiz);
-//        intent = new Intent(getApplicationContext(), AddQuestions.class);
-//        startActivity(intent);
-//        finish();
+        intent = new Intent(getApplicationContext(), AddQuestions.class);
+        intent.putExtra("QUIZ_ID", quiz_id);
+        startActivity(intent);
+        finish();
 
     }
 
@@ -148,5 +142,4 @@ public class create extends AppCompatActivity {
     public Bitmap getBitmap(){
         return bitmap;
     }
-
 }

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.racoon_moon.kahootproject.database.KahootsDatabase;
 import com.racoon_moon.kahootproject.questions.data.Question;
 
+import java.util.List;
+
 public class AddQuestions extends AppCompatActivity {
 
     TextView id;
@@ -29,6 +31,10 @@ public class AddQuestions extends AppCompatActivity {
 
     KahootsDatabase db;
 
+    String quiz_id;
+
+
+
     public static int kahootCounter = 0;
 
     @Override
@@ -37,10 +43,14 @@ public class AddQuestions extends AppCompatActivity {
         setContentView(R.layout.activity_add_questions);
         db = new KahootsDatabase(this);
 
-
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            quiz_id = bundle.getString("QUIZ_ID");
+        }
 
         id = findViewById(R.id.id);
-        id.setText("6");
+        id.setText(String.valueOf(db.getNextQuestion(quiz_id)));
+        Log.i("CURRENT QUIZ ID", "ID = " + quiz_id);
 
         question = findViewById(R.id.question);
         answerA = findViewById(R.id.answerA);
@@ -76,13 +86,34 @@ public class AddQuestions extends AppCompatActivity {
             Toast.makeText(this, "Missing Answers", Toast.LENGTH_SHORT).show();
         }
         newQuestion = new Question(id.getText().toString(), question.getText().toString(), answer1.getText().toString(),
-                answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString());
-        //db.insertKahoot(newQuestion);
+                answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString(), quiz_id);
+        db.insertKahoot(newQuestion);
         question.setText("");
         answer1.setText("");
         answer2.setText("");
         answer3.setText("");
         answer4.setText("");
+        answerA.setText("");
+        answerB.setText("");
+        answerC.setText("");
+        answerD.setText("");
+        List<Question> questions = db.getAllQuestions();
+        if (questions.size() == 0){
+        showMessage("Error", "Nothing to show");
+        return;
+        }
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(KahootsDatabase.KAHOOT_TABLE_NAME + "\n");
+        for (int i = 0; i < questions.size(); i++){
+        buffer.append(questions.get(i).getId() + "\n");
+        buffer.append(questions.get(i).getQuestion() + "\n");
+        buffer.append(questions.get(i).getAnswer1() + "\n");
+        buffer.append(questions.get(i).getAnswer2() + "\n");
+        buffer.append(questions.get(i).getAnswer3() + "\n");
+        buffer.append(questions.get(i).getAnswer4() + "\n");
+        buffer.append(questions.get(i).getQuizId() + "\n\n");
+        }
+        showMessage("Kahoots", buffer.toString());
         id.setText(String.valueOf(Integer.parseInt(id.getText().toString()) + 1));
 
     }
@@ -173,7 +204,7 @@ public class AddQuestions extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        intent = new Intent(getApplicationContext(), create.class);
+        intent = new Intent(getApplicationContext(), Discover.class);
         startActivity(intent);
         finish();
     }

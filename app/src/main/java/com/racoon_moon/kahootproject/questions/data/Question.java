@@ -9,18 +9,20 @@ public class Question
     private String answer2;
     private String answer3;
     private String answer4;
+    private String quizId;
 
     public Question() {
 
     }
 
-    public Question(String id, String question, String answer1, String answer2, String answer3, String answer4) {
+    public Question(String id, String question, String answer1, String answer2, String answer3, String answer4, String quizId) {
         this.id = id;
         this.question = question;
         this.answer1 = answer1;
         this.answer2 = answer2;
         this.answer3 = answer3;
         this.answer4 = answer4;
+        this.quizId = quizId;
     }
 
     public String getId() {
@@ -47,6 +49,8 @@ public class Question
         return answer4;
     }
 
+    public String getQuizId() { return quizId; }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -70,4 +74,6 @@ public class Question
     public void setAnswer4(String answer4) {
         this.answer4 = answer4;
     }
+
+    public void setQuizId(String quizId) { this.quizId = quizId; }
 }

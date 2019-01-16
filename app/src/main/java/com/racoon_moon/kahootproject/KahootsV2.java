@@ -4,14 +4,21 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.racoon_moon.kahootproject.database.KahootsDatabase;
+import com.racoon_moon.kahootproject.questions.data.Question;
+import com.racoon_moon.kahootproject.questions.data.Quiz;
+
+import java.util.List;
 
 public class KahootsV2 extends AppCompatActivity {
 
@@ -19,6 +26,8 @@ public class KahootsV2 extends AppCompatActivity {
     ListView listView;
 
     KahootsDatabase db;
+
+    KahootsListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,26 +80,59 @@ public class KahootsV2 extends AppCompatActivity {
         Log.i("TRY TO GET LIST", "TRIENG");
 
         if (db.getAllQuizzes() != null) {
-            Log.i("TRY TO GET LIST", "SUCCESSFULY RECEIVED");
-            KahootsListAdapter adapter = new KahootsListAdapter(this, R.layout.quiz_layout, db.getAllQuizzes());
+            Log.i("TRY TO GET LIST", "SUCCESSFULLY RECEIVED");
+            adapter = new KahootsListAdapter(this, R.layout.quiz_layout, db.getAllQuizzes());
             listView.setAdapter(adapter);
         }
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                intent = new Intent(getApplicationContext(), AddQuestions.class);
+                Log.i("PASSING QUIZ ID", "ID = " + position);
+                intent.putExtra("QUIZ_ID", String.valueOf(position));
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                db.deleteQuiz(String.valueOf(position));
+                adapter.notifyDataSetChanged();
+                StringBuffer buffer = new StringBuffer();
+                List<Quiz> questions = db.getAllQuizzes();
+                buffer.append(KahootsDatabase.KAHOOT_TABLE_NAME + "\n");
+                for (int i = 0; i < questions.size(); i++) {
+                    buffer.append(questions.get(i).getId() + "\n");
+                    buffer.append(questions.get(i).getName() + "\n\n");
+                }
+                showMessage("Quizzes", buffer.toString());
+                return true;
+            }
+        });
+
     }
 
-    public void moveFav(View view)
-    {
+    public void showMessage(String title,String message){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(true);
+            builder.setTitle(title);
+            builder.setMessage(message);
+            builder.show();
+        }
+
+    public void moveFav(View view) {
         Intent intent2 = new Intent(this, kahoot_fav.class);
         startActivity(intent2);
         finish();
-
     }
 
-    public void moveShareKahoot(View view)
-    {
+    public void moveShareKahoot(View view) {
         Intent intent2 = new Intent(this, kahootsShare.class);
         startActivity(intent2);
         finish();
-
     }
 
     @Override

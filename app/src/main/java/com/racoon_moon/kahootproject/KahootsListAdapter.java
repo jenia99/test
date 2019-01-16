@@ -47,6 +47,9 @@ public class KahootsListAdapter extends ArrayAdapter<Quiz> {
             quizImage.setImageDrawable(context.getResources().getDrawable(R.drawable.insert_photo));
         }
 
+        TextView time = view.findViewById(R.id.timeTextView);
+        time.setText(currentQuiz.getId());
+
         return view;
     }
 }

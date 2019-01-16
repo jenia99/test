@@ -28,6 +28,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_ANSWER2 = "Answer2";
     public static final String COLUMN_ANSWER3 = "Answer3";
     public static final String COLUMN_ANSWER4 = "Answer4";
+    public static final String COLUMN_IN_QUIZ = "quiz_id";
 
     public static final String QUIZ_TABLE_NAME = "quizzes";
     public static final String COLUMN_QUIZ_ID = "ID";
@@ -36,7 +37,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_VISIBLE = "Visible";
 
     public static final String[] QUESTION_COLUMNS = {COLUMN_KAHOOT_ID, COLUMN_QUESTION, COLUMN_ANSWER1,
-                                            COLUMN_ANSWER2, COLUMN_ANSWER3, COLUMN_ANSWER4};
+                                            COLUMN_ANSWER2, COLUMN_ANSWER3, COLUMN_ANSWER4, COLUMN_IN_QUIZ};
 
     SQLiteDatabase db = null;
 
@@ -47,22 +48,20 @@ public class KahootsDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.i("RUN ON CREATE METHOD", "STARTED");
         db.execSQL("create table if not exists " + QUIZ_TABLE_NAME + " ("
                 + COLUMN_QUIZ_ID + " VARCHAR PRIMARY KEY,"
                 + COLUMN_NAME + " VARCHAR,"
                 + COLUMN_IMAGE + " BLOB,"
                 + COLUMN_VISIBLE + " VARCHAR)");
-        Log.i("FIRST METHOD", "CREATED QUIZ TABLE");
 
         db.execSQL("create table if not exists " + KAHOOT_TABLE_NAME + " ("
-                + COLUMN_KAHOOT_ID + " VARCHAR PRIMARY KEY,"
+                + COLUMN_KAHOOT_ID + " VARCHAR,"
                 + COLUMN_QUESTION + " VARCHAR,"
                 + COLUMN_ANSWER1 + " VARCHAR,"
                 + COLUMN_ANSWER2 + " VARCHAR,"
                 + COLUMN_ANSWER3 + " VARCHAR,"
-                + COLUMN_ANSWER4 + " VARCHAR)");
-        Log.i("SECOND METHOD", "CREATE KAHOOT TABLE");
+                + COLUMN_ANSWER4 + " VARCHAR,"
+                + COLUMN_IN_QUIZ + " VARCHAR)");
     }
 
     @Override
@@ -80,10 +79,15 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_ANSWER2, question.getAnswer2());
         contentValues.put(COLUMN_ANSWER3, question.getAnswer3());
         contentValues.put(COLUMN_ANSWER4, question.getAnswer4());
+        contentValues.put(COLUMN_IN_QUIZ, question.getQuizId());
         long result = db.insert(KAHOOT_TABLE_NAME, null, contentValues);
         if (result == -1){
+            Log.i("INSERT KAHHOT", "FAILED");
             return false;
-        }else return true;
+        }else {
+            Log.i("INSERT KAHOOT", "INSERTED " + question.getQuizId());
+            return true;
+        }
     }
 
     public boolean insertQuiz(Quiz quiz){
@@ -125,6 +129,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_ANSWER2, question.getAnswer2());
         contentValues.put(COLUMN_ANSWER3, question.getAnswer3());
         contentValues.put(COLUMN_ANSWER4, question.getAnswer4());
+        contentValues.put(COLUMN_QUIZ_ID, question.getQuizId());
 
         db.update(KAHOOT_TABLE_NAME, contentValues, COLUMN_KAHOOT_ID + " = ?",
                 new String[] {question.getId()});
@@ -137,30 +142,20 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         try {
-            Log.i("TRY", "TRYING");
             cursor = db.query(KAHOOT_TABLE_NAME, QUESTION_COLUMNS, COLUMN_KAHOOT_ID + " = ?", new String[] { id },
                     null, null, null, null);
-            Log.i("CURSOR CREATION", "CURSOR CREATED");
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
 
                 question = new Question();
-                Log.i("CREATE QUESTION OBJECT", "QUESTION CREATED");
                 question.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
-                Log.i("SET QUESTION", "QUESTION: " + cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
                 question.setAnswer1(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER1)));
-                Log.i("SET ANSWER1", "ANSWER1: " + cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER1)));
                 question.setAnswer2(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER2)));
-                Log.i("SET ANSWER2", "ANSWER2: " + cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER2)));
                 question.setAnswer3(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER3)));
-                Log.i("SET ANSWER3", "ANSWER3: " + cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER3)));
                 question.setAnswer4(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER4)));
-                Log.i("SET ANSWER4", "ANSWER4: " + cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER4)));
-
-
+                question.setQuizId(cursor.getString(cursor.getColumnIndex(COLUMN_IN_QUIZ)));
             }
         }catch (Throwable t){
-            Log.i("CATCH", "FAILED TO READ");
             t.printStackTrace();
         }
 
@@ -170,9 +165,38 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         return question;
     }
 
-    public Integer deleteQuestion(String id){
+    public boolean deleteQuestion(Question question){
         db = this.getWritableDatabase();
-        return db.delete(KAHOOT_TABLE_NAME, COLUMN_KAHOOT_ID + " = ?", new String[] { id });
+        int delete = db.delete(KAHOOT_TABLE_NAME, COLUMN_KAHOOT_ID + " = ?", new String[] { question.getId() });
+        if (delete != 0){
+            return true;
+        }else {
+            return false;
+
+        }
+    }
+
+    public boolean deleteQuiz(String id){
+        db = this.getWritableDatabase();
+        int deletedQuiz = db.delete(QUIZ_TABLE_NAME, COLUMN_QUIZ_ID + " = ?", new String[] { id });
+        int deletedQuestions = db.delete(KAHOOT_TABLE_NAME, COLUMN_IN_QUIZ + " = ?", new String[] { id });
+        Log.i("DELETED QUIZZES", " = " + deletedQuiz);
+        Log.i("DELETED QUESTIONS", " = " + deletedQuestions);
+        if (deletedQuiz != 0){
+            Log.i("DELETED ROW/S", "DELETED = " + deletedQuiz);
+            List<Quiz> quizzes = getAllQuizzes();
+            Log.i("UPDATE LIST", "LIST CREATED");
+            Log.i("FOR LOOP", "VALUES " + id + ", " + (quizzes.size()-Integer.parseInt(id)) + 1);
+            for (int i = Integer.parseInt(id); i < (quizzes.size() - Integer.parseInt(id)) + 1; i++){
+                Log.i("PASSING VALUES", "PASSED " + quizzes.get(i).toString() + ", " + String.valueOf(i));
+                rearrangeUponDelete(quizzes.get(i).getId(), String.valueOf(i));
+            }
+            return true;
+        }else {
+            Log.i("FALSE ON DELETE", "NOTHING TO DELETE");
+            return false;
+        }
+
     }
 
     public List<Question> getAllQuestions(){
@@ -188,6 +212,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
                 question.setAnswer2(cursor.getString(3));
                 question.setAnswer3(cursor.getString(4));
                 question.setAnswer4(cursor.getString(5));
+                question.setQuizId(cursor.getString(6));
                 result.add(question);
             }
             cursor.close();
@@ -196,6 +221,24 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         }
 
         return result;
+    }
+
+    public void rearrangeUponDelete(String id, String newId){
+        db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        try {
+            contentValues.put(COLUMN_IN_QUIZ, newId);
+            Log.i("UPDATE TABLE QUESTIONS", "VALUES " + contentValues.getAsString(COLUMN_IN_QUIZ));
+            db.update(KAHOOT_TABLE_NAME, contentValues, COLUMN_IN_QUIZ + " = ?", new String[] { id });
+            contentValues.clear();
+            contentValues.put(COLUMN_QUIZ_ID, newId);
+            Log.i("UPDATE TABLE QUIZ", "VALUES " + contentValues.getAsString(COLUMN_QUIZ_ID));
+            db.update(QUIZ_TABLE_NAME, contentValues, COLUMN_QUIZ_ID + " = ?", new String[] { id });
+        }catch (Throwable t){
+            Log.i("CATCH", "NO MATCHING QUESTIONS");
+            t.printStackTrace();
+        }
+
     }
 
     public List<Quiz> getAllQuizzes(){
@@ -235,7 +278,39 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         }catch (Throwable t){
             t.printStackTrace();
         }
-        Log.i("NUMBER OF RECORDS", "NUM = " + counter);
         return result;
+    }
+
+    public int getNextQuestion(String quiz_id){
+        db = this.getWritableDatabase();
+        Cursor cursor = null;
+        try {
+            Log.i("QUIZ ID PASSED", "ID = " + quiz_id);
+            cursor = db.query(KAHOOT_TABLE_NAME, QUESTION_COLUMNS, COLUMN_IN_QUIZ + " = ?",
+                    new String[]{ quiz_id }, null, null, null);
+            Log.i("CURSOR", "CURSOR IS CURRECT " + cursor.getCount());
+            if (cursor != null && cursor.getCount() > 0) {
+                Log.i("CURSOR STATE", "COUNT " + cursor.getCount());
+                cursor.moveToFirst();
+                while (cursor.moveToNext()) {
+                    Log.i("VALUES", "= " + cursor.getString(0));
+                    Log.i("VALUES", "= " + cursor.getString(1));
+                    Log.i("VALUES", "= " + cursor.getString(2));
+                    Log.i("VALUES", "= " + cursor.getString(3));
+                    Log.i("VALUES", "= " + cursor.getString(4));
+                    Log.i("VALUES", "= " + cursor.getString(5));
+                    Log.i("VALUES", "= " + cursor.getString(6));
+                }
+            }
+        }catch (Throwable t){
+            Log.i("CATCH GET NEXT QUESTION", "NO QUESTION FOUND");
+            t.printStackTrace();
+        }
+        if (cursor != null){cursor.close();}
+        if (cursor.getCount() == 0){
+            return 1;
+        }else {
+            return cursor.getCount() + 1;
+        }
     }
 }

@@ -12,7 +12,8 @@ public class Quiz {
 
     }
 
-    public Quiz(String name, Bitmap picture, boolean visible){
+    public Quiz(String id, String name, Bitmap picture, boolean visible){
+        this.id = id;
         this.name = name;
         this.picture = picture;
         this.visible = visible;
