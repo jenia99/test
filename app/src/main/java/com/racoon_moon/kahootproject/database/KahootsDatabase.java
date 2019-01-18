@@ -29,6 +29,10 @@ public class KahootsDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_ANSWER3 = "Answer3";
     public static final String COLUMN_ANSWER4 = "Answer4";
     public static final String COLUMN_IN_QUIZ = "quiz_id";
+    public static final String COLUMN_ANSWER1TRUE = "answer1_true";
+    public static final String COLUMN_ANSWER2TRUE = "answer2_true";
+    public static final String COLUMN_ANSWER3TRUE = "answer3_true";
+    public static final String COLUMN_ANSWER4TRUE = "answer4_true";
 
     public static final String QUIZ_TABLE_NAME = "quizzes";
     public static final String COLUMN_QUIZ_ID = "ID";
@@ -37,7 +41,8 @@ public class KahootsDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_VISIBLE = "Visible";
 
     public static final String[] QUESTION_COLUMNS = {COLUMN_KAHOOT_ID, COLUMN_QUESTION, COLUMN_ANSWER1,
-                                            COLUMN_ANSWER2, COLUMN_ANSWER3, COLUMN_ANSWER4, COLUMN_IN_QUIZ};
+            COLUMN_ANSWER2, COLUMN_ANSWER3, COLUMN_ANSWER4, COLUMN_IN_QUIZ, COLUMN_ANSWER1TRUE, COLUMN_ANSWER2TRUE,
+            COLUMN_ANSWER3TRUE, COLUMN_ANSWER4TRUE};
 
     SQLiteDatabase db = null;
 
@@ -61,7 +66,11 @@ public class KahootsDatabase extends SQLiteOpenHelper {
                 + COLUMN_ANSWER2 + " VARCHAR,"
                 + COLUMN_ANSWER3 + " VARCHAR,"
                 + COLUMN_ANSWER4 + " VARCHAR,"
-                + COLUMN_IN_QUIZ + " VARCHAR)");
+                + COLUMN_IN_QUIZ + " VARCHAR,"
+                + COLUMN_ANSWER1TRUE + " VARCHAR,"
+                + COLUMN_ANSWER2TRUE + " VARCHAR,"
+                + COLUMN_ANSWER3TRUE + " VARCHAR,"
+                + COLUMN_ANSWER4TRUE + " VARCHAR)");
     }
 
     @Override
@@ -80,9 +89,26 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_ANSWER3, question.getAnswer3());
         contentValues.put(COLUMN_ANSWER4, question.getAnswer4());
         contentValues.put(COLUMN_IN_QUIZ, question.getQuizId());
+        if (question.getAnswer1True()){
+            contentValues.put(COLUMN_ANSWER1TRUE, "true");
+        }else {
+            contentValues.put(COLUMN_ANSWER1TRUE, "false");
+        }if (question.getAnswer2True()){
+            contentValues.put(COLUMN_ANSWER2TRUE, "true");
+        }else {
+            contentValues.put(COLUMN_ANSWER2TRUE, "false");
+        }if (question.getAnswer3True()){
+            contentValues.put(COLUMN_ANSWER3TRUE, "true");
+        }else {
+            contentValues.put(COLUMN_ANSWER3TRUE, "false");
+        }if (question.getAnswer4True()){
+            contentValues.put(COLUMN_ANSWER4TRUE, "true");
+        }else {
+            contentValues.put(COLUMN_ANSWER4TRUE, "false");
+        }
         long result = db.insert(KAHOOT_TABLE_NAME, null, contentValues);
         if (result == -1){
-            Log.i("INSERT KAHHOT", "FAILED");
+            Log.i("INSERT KAHOOT", "FAILED");
             return false;
         }else {
             Log.i("INSERT KAHOOT", "INSERTED " + question.getQuizId());
@@ -129,7 +155,6 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_ANSWER2, question.getAnswer2());
         contentValues.put(COLUMN_ANSWER3, question.getAnswer3());
         contentValues.put(COLUMN_ANSWER4, question.getAnswer4());
-        contentValues.put(COLUMN_QUIZ_ID, question.getQuizId());
 
         db.update(KAHOOT_TABLE_NAME, contentValues, COLUMN_KAHOOT_ID + " = ?",
                 new String[] {question.getId()});
@@ -154,6 +179,18 @@ public class KahootsDatabase extends SQLiteOpenHelper {
                 question.setAnswer3(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER3)));
                 question.setAnswer4(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER4)));
                 question.setQuizId(cursor.getString(cursor.getColumnIndex(COLUMN_IN_QUIZ)));
+                if (cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER1TRUE)).equals("true")){
+                    question.setAnswer1True(true);
+                }else question.setAnswer1True(false);
+                if (cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER2TRUE)).equals("true")){
+                    question.setAnswer2True(true);
+                }else question.setAnswer2True(false);
+                if (cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER3TRUE)).equals("true")){
+                    question.setAnswer3True(true);
+                }else question.setAnswer3True(false);
+                if (cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER4TRUE)).equals("true")){
+                    question.setAnswer4True(true);
+                }else question.setAnswer4True(false);
             }
         }catch (Throwable t){
             t.printStackTrace();
@@ -213,6 +250,18 @@ public class KahootsDatabase extends SQLiteOpenHelper {
                 question.setAnswer3(cursor.getString(4));
                 question.setAnswer4(cursor.getString(5));
                 question.setQuizId(cursor.getString(6));
+                if (cursor.getString(7).equals("true")){
+                    question.setAnswer1True(true);
+                }else question.setAnswer1True(false);
+                if (cursor.getString(8).equals("true")){
+                    question.setAnswer2True(true);
+                }else question.setAnswer2True(false);
+                if (cursor.getString(9).equals("true")){
+                    question.setAnswer3True(true);
+                }else question.setAnswer3True(false);
+                if (cursor.getString(10).equals("true")){
+                    question.setAnswer4True(true);
+                }else question.setAnswer4True(false);
                 result.add(question);
             }
             cursor.close();
@@ -243,14 +292,12 @@ public class KahootsDatabase extends SQLiteOpenHelper {
 
     public List<Quiz> getAllQuizzes(){
         db = this.getWritableDatabase();
-        int counter = 0;
         List<Quiz> result = new ArrayList<Quiz>();
         Bitmap image;
 
         try {
             Cursor cursor = db.rawQuery("SELECT * FROM " + QUIZ_TABLE_NAME, null);
             while (cursor.moveToNext()) {
-                counter++;
                 Quiz quiz = new Quiz();
                 quiz.setId(cursor.getString(0));
                 quiz.setName(cursor.getString(1));

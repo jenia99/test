@@ -1,15 +1,16 @@
 package com.racoon_moon.kahootproject;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.racoon_moon.kahootproject.database.KahootsDatabase;
@@ -25,6 +26,13 @@ public class AddQuestions extends AppCompatActivity {
 
     Button answer1, answer2, answer3, answer4;
 
+    ImageButton correctAnswer1, correctAnswer2, correctAnswer3, correctAnswer4;
+
+    boolean answer1Correct = false;
+    boolean answer2Correct = false;
+    boolean answer3Correct = false;
+    boolean answer4Correct = false;
+
     Intent intent;
 
     Question newQuestion = null;
@@ -32,8 +40,6 @@ public class AddQuestions extends AppCompatActivity {
     KahootsDatabase db;
 
     String quiz_id;
-
-
 
     public static int kahootCounter = 0;
 
@@ -72,6 +78,11 @@ public class AddQuestions extends AppCompatActivity {
         answer2.setOnClickListener(selectButton);
         answer3.setOnClickListener(selectButton);
         answer4.setOnClickListener(selectButton);
+
+        correctAnswer1 = findViewById(R.id.correctAnswer1);
+        correctAnswer2 = findViewById(R.id.correctAnswer2);
+        correctAnswer3 = findViewById(R.id.correctAnswer3);
+        correctAnswer4 = findViewById(R.id.correctAnswer4);
     }
 
     public void addQuestion(View view){
@@ -86,7 +97,8 @@ public class AddQuestions extends AppCompatActivity {
             Toast.makeText(this, "Missing Answers", Toast.LENGTH_SHORT).show();
         }
         newQuestion = new Question(id.getText().toString(), question.getText().toString(), answer1.getText().toString(),
-                answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString(), quiz_id);
+                answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString(), quiz_id,
+                answer1Correct, answer2Correct, answer3Correct, answer4Correct);
         db.insertKahoot(newQuestion);
         question.setText("");
         answer1.setText("");
@@ -131,10 +143,33 @@ public class AddQuestions extends AppCompatActivity {
         public void onClick(View v) {
             Button answer = (Button) v;
             if (answer.getTag() == answer1.getTag()){
+                correctAnswer1.setVisibility(View.VISIBLE);
+                correctAnswer1.animate().translationXBy(200).setDuration(400);
+                answer1.animate().translationYBy(-400).setDuration(500);
+                answerA.animate().translationYBy(-400).setDuration(500);
+                answer1.setClickable(false);
+                answer1.setTextSize(32);
                 answer1.setText("");
+                if (answer1Correct){
+                    correctAnswer1.setImageResource(R.drawable.correct_answer);
+                }else correctAnswer1.setImageResource(R.drawable.wrong_answer);
+
                 answerA.setVisibility(View.VISIBLE);
                 answerA.setEnabled(true);
                 answerA.requestFocus();
+                correctAnswer1.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                setBackground(1);
+                                break;
+                            case MotionEvent.ACTION_UP:
+                                break;
+                        }
+                        return false;
+                    }
+                });
                 answerA.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
@@ -142,16 +177,44 @@ public class AddQuestions extends AppCompatActivity {
 
                         }else{
                             answer1.setText(answerA.getText().toString());
+                            correctAnswer1.animate().translationXBy(-200).setDuration(400);
+                            correctAnswer1.setVisibility(View.INVISIBLE);
                             answerA.setVisibility(View.INVISIBLE);
+                            answer1.animate().translationYBy(400).setDuration(500);
+                            answerA.animate().translationYBy(400).setDuration(500);
+                            answer1.setClickable(true);
                             answerA.clearFocus();
+                            Log.i("ANSWER 1 STATUS", "ANSWER 1 CORRECT = " + answer1Correct);
                         }
                     }
                 });
             }else if (answer.getTag() == answer2.getTag()){
+                correctAnswer2.setVisibility(View.VISIBLE);
+                correctAnswer2.animate().translationXBy(-200).setDuration(400);
+                answer2.animate().translationYBy(-400).setDuration(500);
+                answerB.animate().translationYBy(-400).setDuration(500);
+                answer2.setClickable(false);
+                answer2.setTextSize(32);
                 answer2.setText("");
+                if (answer2Correct){
+                    correctAnswer2.setImageResource(R.drawable.correct_answer);
+                }else correctAnswer2.setImageResource(R.drawable.wrong_answer);
                 answerB.setVisibility(View.VISIBLE);
                 answerB.setEnabled(true);
                 answerB.requestFocus();
+                correctAnswer2.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                setBackground(2);
+                                break;
+                            case MotionEvent.ACTION_UP:
+                                break;
+                        }
+                        return false;
+                    }
+                });
                 answerB.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
@@ -159,16 +222,44 @@ public class AddQuestions extends AppCompatActivity {
 
                         }else {
                             answer2.setText(answerB.getText().toString());
+                            correctAnswer2.animate().translationXBy(200).setDuration(400);
+                            correctAnswer2.setVisibility(View.INVISIBLE);
                             answerB.setVisibility(View.INVISIBLE);
+                            answer2.animate().translationYBy(400).setDuration(500);
+                            answerB.animate().translationYBy(400).setDuration(500);
+                            answer2.setClickable(true);
                             answerB.clearFocus();
+                            Log.i("ANSWER 2 STATUS", "ANSWER 2 CORRECT = " + answer2Correct);
                         }
                     }
                 });
             }else if (answer.getTag() == answer3.getTag()){
+                correctAnswer3.setVisibility(View.VISIBLE);
+                correctAnswer3.animate().translationXBy(200).setDuration(400);
+                answer3.animate().translationYBy(-685).setDuration(500);
+                answerC.animate().translationYBy(-685).setDuration(500);
+                answer3.setClickable(false);
+                answer3.setTextSize(32);
                 answer3.setText("");
+                if (answer3Correct){
+                    correctAnswer3.setImageResource(R.drawable.correct_answer);
+                }else correctAnswer3.setImageResource(R.drawable.wrong_answer);
                 answerC.setVisibility(View.VISIBLE);
                 answerC.setEnabled(true);
                 answerC.requestFocus();
+                correctAnswer3.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                setBackground(3);
+                                break;
+                            case MotionEvent.ACTION_UP:
+                                break;
+                        }
+                        return false;
+                    }
+                });
                 answerC.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
@@ -176,16 +267,44 @@ public class AddQuestions extends AppCompatActivity {
 
                         }else {
                             answer3.setText(answerC.getText().toString());
+                            correctAnswer3.animate().translationXBy(-200).setDuration(400);
+                            correctAnswer3.setVisibility(View.INVISIBLE);
                             answerC.setVisibility(View.INVISIBLE);
+                            answer3.animate().translationYBy(685).setDuration(500);
+                            answerC.animate().translationYBy(685).setDuration(500);
+                            answer3.setClickable(true);
                             answerC.clearFocus();
+                            Log.i("ANSWER 3 STATUS", "ANSWER 3 CORRECT = " + answer3Correct);
                         }
                     }
                 });
             }else if (answer.getTag() == answer4.getTag()){
+                correctAnswer4.setVisibility(View.VISIBLE);
+                correctAnswer4.animate().translationXBy(-200).setDuration(400);
+                answer4.animate().translationYBy(-685).setDuration(500);
+                answerD.animate().translationYBy(-685).setDuration(500);
+                answer4.setClickable(false);
+                answer3.setTextSize(32);
                 answer4.setText("");
+                if (answer4Correct){
+                    correctAnswer4.setImageResource(R.drawable.correct_answer);
+                }else correctAnswer4.setImageResource(R.drawable.wrong_answer);
                 answerD.setVisibility(View.VISIBLE);
                 answerD.setEnabled(true);
                 answerD.requestFocus();
+                correctAnswer4.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                setBackground(4);
+                                break;
+                            case MotionEvent.ACTION_UP:
+                                break;
+                        }
+                        return false;
+                    }
+                });
                 answerD.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
@@ -193,14 +312,62 @@ public class AddQuestions extends AppCompatActivity {
 
                         }else {
                             answer4.setText(answerD.getText().toString());
+                            correctAnswer4.animate().translationXBy(200).setDuration(400);
+                            correctAnswer4.setVisibility(View.INVISIBLE);
                             answerD.setVisibility(View.INVISIBLE);
+                            answer4.animate().translationYBy(685).setDuration(500);
+                            answerD.animate().translationYBy(685).setDuration(500);
+                            answer4.setClickable(true);
                             answerD.clearFocus();
+                            Log.i("ANSWER 4 STATUS", "ANSWER 4 CORRECT = " + answer4Correct);
                         }
                     }
                 });
             }
         }
     };
+
+    private void setBackground(int current){
+        Log.i("DISPLAY RECEIVED VALUE", "VALUE = " + current);
+        if (current == 1){
+            if (answer1Correct){
+                correctAnswer1.setImageResource(R.drawable.wrong_answer);
+                answer1Correct = false;
+            }
+            else {
+                correctAnswer1.setImageResource(R.drawable.correct_answer);
+                answer1Correct = true;
+            }
+        }else if (current == 2){
+            if (answer2Correct){
+                correctAnswer2.setImageResource(R.drawable.wrong_answer);
+                answer2Correct = false;
+            }
+            else {
+                correctAnswer2.setImageResource(R.drawable.correct_answer);
+                answer2Correct = true;
+            }
+        }else if (current == 3){
+            if (answer3Correct){
+                correctAnswer3.setImageResource(R.drawable.wrong_answer);
+                answer3Correct = false;
+            }
+            else {
+                correctAnswer3.setImageResource(R.drawable.correct_answer);
+                answer3Correct = true;
+            }
+        }else if (current == 4){
+            if (answer4Correct){
+                correctAnswer4.setImageResource(R.drawable.wrong_answer);
+                answer4Correct = false;
+            }
+            else {
+                correctAnswer4.setImageResource(R.drawable.correct_answer);
+                answer4Correct = true;
+            }
+        }
+
+    }
 
     @Override
     public void onBackPressed(){

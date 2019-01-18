@@ -1,6 +1,5 @@
 package com.racoon_moon.kahootproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -44,7 +43,7 @@ public class ButtonsFragment extends Fragment {
     {
         View view = inflater.inflate(R.layout.buttons_fragment, container, false);
 
-        answer1 = view.findViewById(R.id.answer1);
+        answer1 = view.findViewById(R.id.answer3);
         answer2 = view.findViewById(R.id.answer2);
         answer3 = view.findViewById(R.id.answer3);
         answer4 = view.findViewById(R.id.answer4);

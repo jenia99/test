@@ -79,11 +79,7 @@ public class KahootsV2 extends AppCompatActivity {
         listView = findViewById(R.id.kahootsList);
         Log.i("TRY TO GET LIST", "TRIENG");
 
-        if (db.getAllQuizzes() != null) {
-            Log.i("TRY TO GET LIST", "SUCCESSFULLY RECEIVED");
-            adapter = new KahootsListAdapter(this, R.layout.quiz_layout, db.getAllQuizzes());
-            listView.setAdapter(adapter);
-        }
+        retrieveList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -109,6 +105,7 @@ public class KahootsV2 extends AppCompatActivity {
                     buffer.append(questions.get(i).getName() + "\n\n");
                 }
                 showMessage("Quizzes", buffer.toString());
+                retrieveList();
                 return true;
             }
         });
@@ -133,6 +130,14 @@ public class KahootsV2 extends AppCompatActivity {
         Intent intent2 = new Intent(this, kahootsShare.class);
         startActivity(intent2);
         finish();
+    }
+
+    private void retrieveList(){
+        if (db.getAllQuizzes() != null) {
+            Log.i("TRY TO GET LIST", "SUCCESSFULLY RECEIVED");
+            adapter = new KahootsListAdapter(this, R.layout.quiz_layout, db.getAllQuizzes());
+            listView.setAdapter(adapter);
+        }
     }
 
     @Override
