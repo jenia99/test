@@ -11,6 +11,20 @@
     tools:context=".AddQuestions">
 
 
+    <EditText
+        android:id="@+id/answerB"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="60dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Answer2"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/answerD"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/answer1"
         android:layout_width="170dp"
@@ -41,6 +55,7 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/holo_red_dark"
         android:tag="2"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/answer4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/question"
@@ -55,6 +70,7 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/holo_green_dark"
         android:tag="3"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/addQuestionButton"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -69,6 +85,7 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/holo_orange_dark"
         android:tag="4"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/addQuestionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -85,56 +102,11 @@
         android:layout_marginBottom="8dp"
         android:onClick="addQuestion"
         android:text="Add Question"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/answerB"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="60dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Answer2"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/answerD"
-        app:layout_constraintEnd_toEndOf="parent" />
     app:layout_constraintBottom_toTopOf="@+id/answerD"
-
-    <EditText
-        android:id="@+id/answerC"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="88dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Answer3"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/answerD"
-        app:layout_constraintHorizontal_bias="0.348"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/answerD"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="88dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Answer4"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/answerA"
@@ -155,6 +127,38 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:id="@+id/answerC"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="176dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Answer3"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/answerD"
+        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/answerD"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="176dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Answer4"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
         android:id="@+id/question"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -170,8 +174,10 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/addQuestionButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id" />
+        app:layout_constraintTop_toBottomOf="@+id/id"
+        app:layout_constraintVertical_bias="0.347" />
 
     <TextView
         android:id="@+id/id"
@@ -262,5 +268,24 @@
         app:layout_constraintTop_toBottomOf="@+id/id"
         app:layout_constraintVertical_bias="0.85"
         app:srcCompat="@drawable/wrong_answer" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView2"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:scrollbars="horizontal"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/scrollLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </android.support.constraint.ConstraintLayout>

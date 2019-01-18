@@ -91,21 +91,17 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_IN_QUIZ, question.getQuizId());
         if (question.getAnswer1True()){
             contentValues.put(COLUMN_ANSWER1TRUE, "true");
-        }else {
-            contentValues.put(COLUMN_ANSWER1TRUE, "false");
-        }if (question.getAnswer2True()){
+        }else contentValues.put(COLUMN_ANSWER1TRUE, "false");
+        if (question.getAnswer2True()){
             contentValues.put(COLUMN_ANSWER2TRUE, "true");
-        }else {
-            contentValues.put(COLUMN_ANSWER2TRUE, "false");
-        }if (question.getAnswer3True()){
+        }else contentValues.put(COLUMN_ANSWER2TRUE, "false");
+        if (question.getAnswer3True()){
             contentValues.put(COLUMN_ANSWER3TRUE, "true");
-        }else {
-            contentValues.put(COLUMN_ANSWER3TRUE, "false");
-        }if (question.getAnswer4True()){
+        }else contentValues.put(COLUMN_ANSWER3TRUE, "false");
+        if (question.getAnswer4True()){
             contentValues.put(COLUMN_ANSWER4TRUE, "true");
-        }else {
-            contentValues.put(COLUMN_ANSWER4TRUE, "false");
-        }
+        }else contentValues.put(COLUMN_ANSWER4TRUE, "false");
+
         long result = db.insert(KAHOOT_TABLE_NAME, null, contentValues);
         if (result == -1){
             Log.i("INSERT KAHOOT", "FAILED");
@@ -148,31 +144,47 @@ public class KahootsDatabase extends SQLiteOpenHelper {
 
     public boolean updateKahoot(Question question){
         db = this.getWritableDatabase();
+        String[] args = { question.getQuizId(), question.getId() };
 
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_KAHOOT_ID, question.getId());
         contentValues.put(COLUMN_QUESTION, question.getQuestion());
         contentValues.put(COLUMN_ANSWER1, question.getAnswer1());
         contentValues.put(COLUMN_ANSWER2, question.getAnswer2());
         contentValues.put(COLUMN_ANSWER3, question.getAnswer3());
         contentValues.put(COLUMN_ANSWER4, question.getAnswer4());
+        if (question.getAnswer1True()){
+            contentValues.put(COLUMN_ANSWER1TRUE, "true");
+        }else contentValues.put(COLUMN_ANSWER1TRUE, "false");
+        if (question.getAnswer2True()){
+            contentValues.put(COLUMN_ANSWER2TRUE, "true");
+        }else contentValues.put(COLUMN_ANSWER2TRUE, "false");
+        if (question.getAnswer3True()){
+            contentValues.put(COLUMN_ANSWER3TRUE, "true");
+        }else contentValues.put(COLUMN_ANSWER3TRUE, "false");
+        if (question.getAnswer4True()){
+            contentValues.put(COLUMN_ANSWER4TRUE, "true");
+        }else contentValues.put(COLUMN_ANSWER4TRUE, "false");
 
-        db.update(KAHOOT_TABLE_NAME, contentValues, COLUMN_KAHOOT_ID + " = ?",
-                new String[] {question.getId()});
+        db.update(KAHOOT_TABLE_NAME, contentValues, COLUMN_IN_QUIZ + " = ? and "
+                + COLUMN_KAHOOT_ID + " = ?", args);
         return true;
     }
 
-    public Question readQuestion(String id){
+    public Question readQuestion(String quiz_id, String id){
         db = this.getReadableDatabase();
+        String[] args = { quiz_id, id };
         Question question = null;
         Cursor cursor = null;
 
         try {
-            cursor = db.query(KAHOOT_TABLE_NAME, QUESTION_COLUMNS, COLUMN_KAHOOT_ID + " = ?", new String[] { id },
-                    null, null, null, null);
+            cursor = db.query(KAHOOT_TABLE_NAME, QUESTION_COLUMNS, COLUMN_IN_QUIZ + " = ? and "
+                            + COLUMN_KAHOOT_ID + " = ?", args, null, null, null, null);
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
 
                 question = new Question();
+                question.setId(cursor.getString(cursor.getColumnIndex(COLUMN_KAHOOT_ID)));
                 question.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
                 question.setAnswer1(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER1)));
                 question.setAnswer2(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER2)));
@@ -272,6 +284,23 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         return result;
     }
 
+    public int getAllQuestionsById(String quiz_id){
+        db = this.getWritableDatabase();
+        Cursor cursor = null;
+        int result = 0;
+        try{
+            cursor = db.query(KAHOOT_TABLE_NAME, QUESTION_COLUMNS, COLUMN_IN_QUIZ + " = ?", new String[] { quiz_id },
+                    null, null, null, null);
+            if (cursor != null && cursor.getCount() > 0){
+                result = cursor.getCount();
+            }
+            cursor.close();
+        }catch (Throwable t){
+            t.printStackTrace();
+        }
+        return result;
+    }
+
     public void rearrangeUponDelete(String id, String newId){
         db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -335,7 +364,7 @@ public class KahootsDatabase extends SQLiteOpenHelper {
             Log.i("QUIZ ID PASSED", "ID = " + quiz_id);
             cursor = db.query(KAHOOT_TABLE_NAME, QUESTION_COLUMNS, COLUMN_IN_QUIZ + " = ?",
                     new String[]{ quiz_id }, null, null, null);
-            Log.i("CURSOR", "CURSOR IS CURRECT " + cursor.getCount());
+            Log.i("CURSOR", "CURSOR IS CORRECT " + cursor.getCount());
             if (cursor != null && cursor.getCount() > 0) {
                 Log.i("CURSOR STATE", "COUNT " + cursor.getCount());
                 cursor.moveToFirst();

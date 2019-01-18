@@ -1,22 +1,30 @@
 package com.racoon_moon.kahootproject;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.racoon_moon.kahootproject.database.KahootsDatabase;
 import com.racoon_moon.kahootproject.questions.data.Question;
 
 import java.util.List;
+
+import static java.lang.String.valueOf;
 
 public class AddQuestions extends AppCompatActivity {
 
@@ -41,6 +49,11 @@ public class AddQuestions extends AppCompatActivity {
 
     String quiz_id;
 
+    int i;
+
+    LinearLayout scrollLayout;
+    HorizontalScrollView horizontalScrollView;
+
     public static int kahootCounter = 0;
 
     @Override
@@ -55,7 +68,7 @@ public class AddQuestions extends AppCompatActivity {
         }
 
         id = findViewById(R.id.id);
-        id.setText(String.valueOf(db.getNextQuestion(quiz_id)));
+        id.setText(valueOf(db.getNextQuestion(quiz_id)));
         Log.i("CURRENT QUIZ ID", "ID = " + quiz_id);
 
         question = findViewById(R.id.question);
@@ -83,6 +96,19 @@ public class AddQuestions extends AppCompatActivity {
         correctAnswer2 = findViewById(R.id.correctAnswer2);
         correctAnswer3 = findViewById(R.id.correctAnswer3);
         correctAnswer4 = findViewById(R.id.correctAnswer4);
+
+        horizontalScrollView = findViewById(R.id.horizontalScrollView2);
+        scrollLayout = findViewById(R.id.scrollLayout);
+        for (i = 1; i < db.getAllQuestionsById(quiz_id) + 2; i++){
+            Button button = new Button(getApplicationContext());
+            button.setId(i);
+            button.setOnClickListener(retrieveQuestion);
+            button.setText(String.valueOf(i));
+            scrollLayout.addView(button);
+            Log.i("SCROLL", "BUTTON ID/TAG " + button.getId() + ", " + button.getTag());
+        }
+
+
     }
 
     public void addQuestion(View view){
@@ -123,11 +149,19 @@ public class AddQuestions extends AppCompatActivity {
         buffer.append(questions.get(i).getAnswer2() + "\n");
         buffer.append(questions.get(i).getAnswer3() + "\n");
         buffer.append(questions.get(i).getAnswer4() + "\n");
-        buffer.append(questions.get(i).getQuizId() + "\n\n");
+        buffer.append(questions.get(i).getQuizId() + "\n");
+        buffer.append(questions.get(i).getAnswer1True() + "\n");
+        buffer.append(questions.get(i).getAnswer2True() + "\n");
+        buffer.append(questions.get(i).getAnswer3True() + "\n");
+        buffer.append(questions.get(i).getAnswer4True() + "\n\n");
         }
         showMessage("Kahoots", buffer.toString());
-        id.setText(String.valueOf(Integer.parseInt(id.getText().toString()) + 1));
+        id.setText(valueOf(Integer.parseInt(id.getText().toString()) + 1));
 
+//        intent = new Intent(getApplicationContext(), AddQuestions.class);
+//        intent.putExtra("QUIZ_ID", quiz_id);
+//        startActivity(intent);
+//        finish();
     }
 
     public void showMessage(String title, String message){
@@ -138,17 +172,61 @@ public class AddQuestions extends AppCompatActivity {
         builder.show();
     }
 
-    private View.OnClickListener selectButton = new View.OnClickListener() {
+    private View.OnClickListener retrieveQuestion = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            newQuestion = new Question(id.getText().toString(), question.getText().toString(), answer1.getText().toString(),
+                    answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString(), quiz_id,
+                    answer1Correct, answer2Correct, answer3Correct, answer4Correct);
+            db.updateKahoot(newQuestion);
+            Button b = (Button) v;
+            try {
+                Question object = db.readQuestion(quiz_id, String.valueOf(b.getId()));
+                Log.i("OBJECT ID", " = " + object.getId());
+                id.setText(object.getId());
+                question.setText(object.getQuestion());
+                answer1.setText(object.getAnswer1());
+                answer2.setText(object.getAnswer2());
+                answer3.setText(object.getAnswer3());
+                answer4.setText(object.getAnswer4());
+                answer1Correct = object.getAnswer1True();
+                answer2Correct = object.getAnswer2True();
+                answer3Correct = object.getAnswer3True();
+                answer4Correct = object.getAnswer4True();
+            }catch (Throwable t){
+                Log.i("CATCH", "CATCHED THE LAST QUESTION");
+                id.setText(String.valueOf(b.getId()));
+                question.setText("");
+                answer1.setText("");
+                answer2.setText("");
+                answer3.setText("");
+                answer4.setText("");
+                answer1Correct = false;
+                answer2Correct = false;
+                answer3Correct = false;
+                answer4Correct = false;
+            }
+        }
+    };
+
+    private View.OnClickListener selectButton = new View.OnClickListener() {
+        @Override
+        @TargetApi(21)
+        public void onClick(View v) {
+            answer1.setTextSize(28);
+            answer2.setTextSize(28);
+            answer3.setTextSize(28);
+            answer4.setTextSize(28);
             Button answer = (Button) v;
             if (answer.getTag() == answer1.getTag()){
                 correctAnswer1.setVisibility(View.VISIBLE);
                 correctAnswer1.animate().translationXBy(200).setDuration(400);
                 answer1.animate().translationYBy(-400).setDuration(500);
                 answerA.animate().translationYBy(-400).setDuration(500);
+                answerA.setText(answer1.getText());
+                answer1.setText("");
+                answerA.animate().translationZ(20);
                 answer1.setClickable(false);
-                answer1.setTextSize(32);
                 answer1.setText("");
                 if (answer1Correct){
                     correctAnswer1.setImageResource(R.drawable.correct_answer);
@@ -193,6 +271,9 @@ public class AddQuestions extends AppCompatActivity {
                 correctAnswer2.animate().translationXBy(-200).setDuration(400);
                 answer2.animate().translationYBy(-400).setDuration(500);
                 answerB.animate().translationYBy(-400).setDuration(500);
+                answerB.setText(answer2.getText());
+                answer2.setText("");
+                answerB.animate().translationZ(20);
                 answer2.setClickable(false);
                 answer2.setTextSize(32);
                 answer2.setText("");
@@ -238,6 +319,9 @@ public class AddQuestions extends AppCompatActivity {
                 correctAnswer3.animate().translationXBy(200).setDuration(400);
                 answer3.animate().translationYBy(-685).setDuration(500);
                 answerC.animate().translationYBy(-685).setDuration(500);
+                answerC.setText(answer3.getText());
+                answer3.setText("");
+                answerC.animate().translationZ(20);
                 answer3.setClickable(false);
                 answer3.setTextSize(32);
                 answer3.setText("");
@@ -283,6 +367,9 @@ public class AddQuestions extends AppCompatActivity {
                 correctAnswer4.animate().translationXBy(-200).setDuration(400);
                 answer4.animate().translationYBy(-685).setDuration(500);
                 answerD.animate().translationYBy(-685).setDuration(500);
+                answerD.setText(answer4.getText());
+                answer4.setText("");
+                answerD.animate().translationZ(20);
                 answer4.setClickable(false);
                 answer3.setTextSize(32);
                 answer4.setText("");
@@ -371,6 +458,17 @@ public class AddQuestions extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
+        if (db.readQuestion(quiz_id, id.getText().toString()) == null){
+            newQuestion = new Question(id.getText().toString(), question.getText().toString(), answer1.getText().toString(),
+                    answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString(), quiz_id,
+                    answer1Correct, answer2Correct, answer3Correct, answer4Correct);
+            db.insertKahoot(newQuestion);
+        }else {
+            newQuestion = new Question(id.getText().toString(), question.getText().toString(), answer1.getText().toString(),
+                    answer2.getText().toString(), answer3.getText().toString(), answer4.getText().toString(), quiz_id,
+                    answer1Correct, answer2Correct, answer3Correct, answer4Correct);
+            db.updateKahoot(newQuestion);
+        }
         intent = new Intent(getApplicationContext(), Discover.class);
         startActivity(intent);
         finish();

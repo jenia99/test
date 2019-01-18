@@ -77,7 +77,6 @@ public class KahootsV2 extends AppCompatActivity {
         });
 
         listView = findViewById(R.id.kahootsList);
-        Log.i("TRY TO GET LIST", "TRIENG");
 
         retrieveList();
 
@@ -134,7 +133,6 @@ public class KahootsV2 extends AppCompatActivity {
 
     private void retrieveList(){
         if (db.getAllQuizzes() != null) {
-            Log.i("TRY TO GET LIST", "SUCCESSFULLY RECEIVED");
             adapter = new KahootsListAdapter(this, R.layout.quiz_layout, db.getAllQuizzes());
             listView.setAdapter(adapter);
         }
