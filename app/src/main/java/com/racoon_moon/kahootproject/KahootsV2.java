@@ -94,7 +94,7 @@ public class KahootsV2 extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                db.deleteQuiz(String.valueOf(position));
+                db.deleteQuiz(db.readQuiz(String.valueOf(position)));
                 adapter.notifyDataSetChanged();
                 StringBuffer buffer = new StringBuffer();
                 List<Quiz> questions = db.getAllQuizzes();

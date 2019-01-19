@@ -7,11 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
 
 import com.racoon_moon.kahootproject.AddQuestions;
 import com.racoon_moon.kahootproject.questions.data.Question;
 import com.racoon_moon.kahootproject.questions.data.Quiz;
+
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -214,6 +218,49 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         return question;
     }
 
+    public Quiz readQuiz(String quiz_id){
+        db = this.getWritableDatabase();
+        Cursor cursor = null;
+        Quiz quiz = null;
+        Bitmap image;
+        try {
+            cursor = db.query(KAHOOT_TABLE_NAME, QUESTION_COLUMNS, COLUMN_IN_QUIZ + " = ?", new String[] { quiz_id },
+                        null, null, null, null);
+            if (cursor != null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+
+                quiz = new Quiz();
+                quiz.setId(cursor.getString(cursor.getColumnIndex(COLUMN_QUIZ_ID)));
+                quiz.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
+                try {
+                    if (cursor.getString(2).equals("null")){
+                        quiz.setPicture(null);
+                    }
+                }catch (Throwable t){
+                    t.printStackTrace();
+                }
+                try{
+                    image = BitmapFactory.decodeByteArray(cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE)),
+                                                0, cursor.getBlob(2).length);
+                    quiz.setPicture(image);
+                }catch (Throwable t){
+                    t.printStackTrace();
+                }
+                if (cursor.getString(cursor.getColumnIndex(COLUMN_VISIBLE)).equals("everyone")) {
+                    quiz.setVisibility(true);
+                } else {
+                    quiz.setVisibility(false);
+                }
+            }
+        }catch (Throwable t){
+            t.printStackTrace();
+        }
+        if (cursor != null){
+            cursor.close();
+        }
+        return quiz;
+    }
+
     public boolean deleteQuestion(Question question){
         db = this.getWritableDatabase();
         int delete = db.delete(KAHOOT_TABLE_NAME, COLUMN_KAHOOT_ID + " = ?", new String[] { question.getId() });
@@ -225,18 +272,18 @@ public class KahootsDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteQuiz(String id){
+    public boolean deleteQuiz(Quiz quiz){
         db = this.getWritableDatabase();
-        int deletedQuiz = db.delete(QUIZ_TABLE_NAME, COLUMN_QUIZ_ID + " = ?", new String[] { id });
-        int deletedQuestions = db.delete(KAHOOT_TABLE_NAME, COLUMN_IN_QUIZ + " = ?", new String[] { id });
+        int deletedQuiz = db.delete(QUIZ_TABLE_NAME, COLUMN_QUIZ_ID + " = ?", new String[] { quiz.getId() });
+        int deletedQuestions = db.delete(KAHOOT_TABLE_NAME, COLUMN_IN_QUIZ + " = ?", new String[] { quiz.getId() });
         Log.i("DELETED QUIZZES", " = " + deletedQuiz);
         Log.i("DELETED QUESTIONS", " = " + deletedQuestions);
         if (deletedQuiz != 0){
             Log.i("DELETED ROW/S", "DELETED = " + deletedQuiz);
             List<Quiz> quizzes = getAllQuizzes();
             Log.i("UPDATE LIST", "LIST CREATED");
-            Log.i("FOR LOOP", "VALUES " + id + ", " + (quizzes.size()-Integer.parseInt(id)) + 1);
-            for (int i = Integer.parseInt(id); i < (quizzes.size() - Integer.parseInt(id)) + 1; i++){
+            Log.i("FOR LOOP", "VALUES " + quiz.getId() + ", " + (quizzes.size()-Integer.parseInt(quiz.getId())) + 1);
+            for (int i = Integer.parseInt(quiz.getId()); i < (quizzes.size() - Integer.parseInt(quiz.getId())) + 1; i++){
                 Log.i("PASSING VALUES", "PASSED " + quizzes.get(i).toString() + ", " + String.valueOf(i));
                 rearrangeUponDelete(quizzes.get(i).getId(), String.valueOf(i));
             }

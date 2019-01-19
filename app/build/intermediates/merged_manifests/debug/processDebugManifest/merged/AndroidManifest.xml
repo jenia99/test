@@ -19,7 +19,6 @@
         android:layoutDirection="ltr"
         android:roundIcon="@drawable/kahoot"
         android:supportsRtl="false"
-        android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity android:name="com.racoon_moon.kahootproject.welcomePage" >
             <intent-filter>
